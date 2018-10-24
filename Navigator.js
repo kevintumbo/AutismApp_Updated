@@ -11,8 +11,8 @@ import LoginScreen from "./src/screens/auth/login";
 import RegisterScreen from "./src/screens/auth/register";
 
 export const Navigator = createStackNavigator({
-	login: { screen: LoginScreen },
-	signUp: { screen: RegisterScreen },
+	login: { screen: LoginScreen, navigationOptions: { header: null } },
+	signUp: { screen: RegisterScreen, navigationOptions: { header: null } },
 }, { initialRouteName: "login" });
 
 export const navReducer = createNavigationReducer(Navigator);

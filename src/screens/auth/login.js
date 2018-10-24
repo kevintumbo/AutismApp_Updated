@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Button, View, Text, TextInput } from "react-native";
+import { TouchableOpacity, View, Text, TextInput } from "react-native";
 import { connect } from "react-redux";
 import validator from "../../utility/validation";
 import logStyles from "./styles/login.styles";
-import { loginUser } from "../../store/modules/auth";
+import { loginUserAction } from "../../store/modules/auth";
 
 class LoginScreen extends Component {
 	static propTypes = {
-		loginUser: PropTypes.func.isRequired,
+		loginUserAction: PropTypes.func.isRequired,
 	}
 	constructor(props) {
 		super(props);
@@ -50,7 +50,7 @@ class LoginScreen extends Component {
 	login = () => {
 		const nameToCheck = this.state.name.value;
 		const passwordToCheck = this.state.password.value;
-		this.props.loginUser(nameToCheck, passwordToCheck);
+		this.props.loginUserAction(nameToCheck, passwordToCheck);
 	};
 
 	showAlert = () => {
@@ -68,13 +68,13 @@ class LoginScreen extends Component {
 	render() {
 		return (
 			<View style={logStyles.container}>
-				<Text style={logStyles.heading}>
-					Autism Learning App
-				</Text>
 				<View style={logStyles.inputView}>
+					<Text style={logStyles.heading}>
+						Autism Learning App
+					</Text>
 					<TextInput
 						style={logStyles.textInput}
-						placeholder="John Smith"
+						placeholder="Username"
 						value={this.state.name.value}
 						onChangeText={val => this.updateInputState("name", val)}
 					/>
@@ -84,24 +84,27 @@ class LoginScreen extends Component {
 						value={this.state.password.value}
 						onChangeText={val => this.updateInputState("password", val)}
 					/>
-					<Button
-						onPress={this.login}
-						style={logStyles.loginButton}
-						title="Log In"
-					/>
 				</View>
-				<View style={logStyles.createAccount}>
-					<Text style={logStyles.text}>
-						Don't have an account?
-					</Text>
-					<Text style={logStyles.text}>
-						Click Below to create an account.
-					</Text>
-					<Button
-						onPress={this.signUp}
-						style={logStyles.button}
-						title="Create An Account"
-					/>
+				<View style={logStyles.pageButtons}>
+					<View style={logStyles.signUp}> 
+						<Text style={logStyles.text}>
+							Don't have an account?
+						</Text>
+						<TouchableOpacity
+							onPress={this.signUp}
+							style={logStyles.button}
+						>
+							<Text style={logStyles.buttonText}> Create An Account </Text>
+						</TouchableOpacity>
+					</View>
+					<View style={logStyles.loginButton}> 
+						<TouchableOpacity
+							onPress={this.login}
+							style={logStyles.button}
+						>
+							<Text style={logStyles.buttonText}> Log In </Text>
+						</TouchableOpacity>
+					</View>
 				</View>
 
 			</View>
@@ -110,7 +113,7 @@ class LoginScreen extends Component {
 }
 
 const mapDispatchToProps = {
-	loginUser,
+	loginUserAction,
 };
 
 export default connect(null, mapDispatchToProps)(LoginScreen);

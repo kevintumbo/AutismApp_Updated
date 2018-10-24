@@ -1,14 +1,18 @@
 import React, { Component } from "react";
-import { Button, Text, TextInput, View } from "react-native";
-import SQLite from "react-native-sqlite-storage";
+import { TouchableOpacity, Text, TextInput, View } from "react-native";
+import { connect } from "react-redux";
+import AwesomeAlert from "react-native-awesome-alerts"
 import validator from "../../utility/validation";
+import { signUpAction } from "../../store/modules/auth";
 import styles from "./styles/register.styles";
 
-export default class RegisterScreen extends Component {
+class RegisterScreen extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			isLoggedIn: false,
+            showAlert: false,
+            isLoggedIn: false,
+            message: null,
 			name: {
 				value: "",
 				valid: false,
@@ -31,10 +35,22 @@ export default class RegisterScreen extends Component {
 				},
 			},
 		};
-	}
+    }
+    
+    static getDerivedStateFromProps(props, state) {
+        console.log(props);
+        if(props.message) {
+            return {
+                ...state,
+                showAlert: true,
+                message: props.message,
+            }
+        }
+        return null;
+    }
 
 	Login = () => {
-		this.props.navigation.navigate('login')
+		this.props.navigation.navigate('login');
 	};
 
 	updateInputState = (key, value) => {
@@ -49,26 +65,12 @@ export default class RegisterScreen extends Component {
 	};
 
 	SignUp = () => {
-		const db = SQLite.openDatabase(
-			{ name: "app.db", createFromLocation: "~app.db" },
-			this.openCB, this.successCB, this.errorCB,
-		);
-		db.transaction((tx) => {
-			tx.executeSql("SELECT * FROM users WHERE name='" + this.state.name.value + "' AND password=" + this.state.password.value, [], (tx, results) => {
-				// Get rows with Web SQL Database spec compliance.
-
-				const len = results.rows.length;
-				if (len > 0) {
-					console.log("A user with this name already exist");
-					alert("A user with this name already exist");
-				} else {
-					tx.executeSql("INSERT INTO users(name, password) VALUES ('" + this.state.name.value + "','" + this.state.password.value + "')", [], () => {
-						alert("Congratulations. You can Now login");
-						this.Login();
-					});
-				}
-			});
-		});
+        const name = this.state.name.value;
+        const password = this.state.password.value;
+        this.props.signUpAction(name, password);
+        if (this.props.message === 'Congratulations. You can now login.'){
+            this.props.navigation.navigate('login');
+        }
 	};
 
 	errorCB = (err) => {
@@ -81,11 +83,38 @@ export default class RegisterScreen extends Component {
 
 	openCB = () => {
 		console.log("Database OPENED");
-	}
+    }
+    
+    showAlert = () => {
+        this.setState({
+          showAlert: true
+        });
+      };
+    
+    hideAlert = () => {
+        this.setState({
+            showAlert: false
+        });
+    };
 
 	render() {
 		return (
 			<View style={styles.container}>
+                <AwesomeAlert
+                    show={this.state.showAlert}
+                    showProgress={false}
+                    title="Hi there."
+                    message={this.state.message}
+                    closeOnTouchOutside={true}
+                    closeOnHardwareBackPress={false}
+                    showCancelButton={false}
+                    showConfirmButton={true}
+                    confirmText="OK"
+                    confirmButtonColor="#DD6B55"
+                    onConfirmPressed={() => {
+                        this.hideAlert();
+                    }}
+                />
 				<Text
 					style={styles.heading}
 				>
@@ -110,24 +139,42 @@ export default class RegisterScreen extends Component {
 						value={this.state.password.value}
 						onChangeText={val => this.updateInputState("password", val)}
 					/>
-					<Button
-						onPress={this.SignUp}
-						style={styles.button}
-						title="Create An Account"
-					/>
+					
 				</View>
-
-				<View style={styles.loginView}>
-					<Text>
-						Already have an Account? Log In.
-					</Text>
-					<Button
-						onPress={this.Login}
-						style={styles.button}
-						title="Log in"
-					/>
-				</View>
+                <View style={styles.pageButtons}>
+                    <View style={styles.signUp}> 
+						<Text style={styles.text}>
+                            Already have an Account? Log In.
+						</Text>
+						<TouchableOpacity
+							onPress={this.Login}
+							style={styles.button}
+						>
+							<Text style={styles.buttonText}> Log in </Text>
+						</TouchableOpacity>
+					</View>
+                    <View style={styles.loginButton}> 
+						<TouchableOpacity
+							onPress={this.SignUp}
+							style={styles.button}
+						>
+							<Text style={styles.buttonText}> Create Account </Text>
+						</TouchableOpacity>
+					</View>
+                </View>
 			</View>
 		);
 	}
 }
+
+const mapDispatchToProps = dispatch => ({
+	signUpAction: (name, password) => dispatch(signUpAction(name, password)),
+});
+
+const mapStateToProps = state => ({
+    message: state.authReducer.auth.message,
+    errorMessage: state.authReducer.auth.errorMessage,
+    error: state.authReducer.auth.error,
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterScreen);
