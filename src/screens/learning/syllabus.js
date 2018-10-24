@@ -67,7 +67,7 @@ class SyllabusScreen extends Component {
 					<View style={syllabusStyles.container}>
 						<View style={syllabusStyles.syllabusList}>
 							<View style={syllabusStyles.syllabusListHeader}>
-								<Text>
+								<Text style={syllabusStyles.syllabusListHeaderText}>
 									Learning App Contents
 								</Text>
 							</View>

@@ -4,20 +4,23 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import syllabusOutputStyles from "./styles/syllabusList.styles";
 
 const SyllabusOutput = props => (
-	<TouchableOpacity onPress={props.onPress}>
+	<TouchableOpacity 
+		onPress={props.onPress} 
+		style={syllabusOutputStyles.button}
+	>
 		<View style={syllabusOutputStyles.syllabusListOption}>
 			<Icon
 				name="book"
-				size={20}
-				color="#000"
+				size={35}
+				color="#fff"
 			/>
-			<Text>
+			<Text style={syllabusOutputStyles.syllabusListOptionTitle}>
 				{props.syllabus.syllabus_name}
 			</Text>
 			<Icon
 				name="chevron-right"
-				size={20}
-				color="#000"
+				size={35}
+				color="#fff"
 			/>
 		</View>
 	</TouchableOpacity>
