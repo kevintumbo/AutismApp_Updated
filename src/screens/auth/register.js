@@ -3,7 +3,7 @@ import { TouchableOpacity, Text, TextInput, View } from "react-native";
 import { connect } from "react-redux";
 import AwesomeAlert from "react-native-awesome-alerts"
 import validator from "../../utility/validation";
-import { signUpAction } from "../../store/modules/auth";
+import { signUpAction, clearErrors } from "../../store/modules/auth";
 import styles from "./styles/register.styles";
 
 class RegisterScreen extends Component {
@@ -38,7 +38,6 @@ class RegisterScreen extends Component {
     }
     
     static getDerivedStateFromProps(props, state) {
-        console.log(props);
         if(props.message) {
             return {
                 ...state,
@@ -68,9 +67,6 @@ class RegisterScreen extends Component {
         const name = this.state.name.value;
         const password = this.state.password.value;
         this.props.signUpAction(name, password);
-        if (this.props.message === 'Congratulations. You can now login.'){
-            this.props.navigation.navigate('login');
-        }
 	};
 
 	errorCB = (err) => {
@@ -92,9 +88,15 @@ class RegisterScreen extends Component {
       };
     
     hideAlert = () => {
-        this.setState({
-            showAlert: false
-        });
+        if (this.props.message === 'Congratulations. You can now login.'){
+            this.setState({
+                showAlert: false
+            });
+            this.props.clearErrors();
+            this.props.navigation.navigate('login');
+        } else {
+            this.props.clearErrors();
+        }
     };
 
 	render() {
@@ -168,7 +170,8 @@ class RegisterScreen extends Component {
 }
 
 const mapDispatchToProps = dispatch => ({
-	signUpAction: (name, password) => dispatch(signUpAction(name, password)),
+    signUpAction: (name, password) => dispatch(signUpAction(name, password)),
+    clearErrors: () => dispatch(clearErrors()),
 });
 
 const mapStateToProps = state => ({

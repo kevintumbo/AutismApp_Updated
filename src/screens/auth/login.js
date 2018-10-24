@@ -43,6 +43,13 @@ class LoginScreen extends Component {
 		));
 	};
 
+	static getDerivedStateFromProps(props, state) {
+        if(props.isAuthenticated) {
+            props.navigation.navigate('syllabus');
+        }
+        return null;
+    }
+
 	signUp = () => {
 		this.props.navigation.navigate('signUp')
 	};
@@ -112,8 +119,14 @@ class LoginScreen extends Component {
 	}
 }
 
-const mapDispatchToProps = {
-	loginUserAction,
-};
+const mapStateToProps = state => ({
+	isAuthenticated: state.authReducer.auth.isAuthenticated,
+	message: state.authReducer.auth.message,
+    errorMessage: state.authReducer.auth.errorMessage,
+})
 
-export default connect(null, mapDispatchToProps)(LoginScreen);
+const mapDispatchToProps = dispatch =>({
+	loginUserAction: (name, password) => dispatch(loginUserAction(name, password)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);

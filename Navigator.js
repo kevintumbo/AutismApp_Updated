@@ -9,10 +9,13 @@ import {
 
 import LoginScreen from "./src/screens/auth/login";
 import RegisterScreen from "./src/screens/auth/register";
+import SyllabusScreen from "./src/screens/learning/syllabus";
 
 export const Navigator = createStackNavigator({
-	login: { screen: LoginScreen, navigationOptions: { header: null } },
-	signUp: { screen: RegisterScreen, navigationOptions: { header: null } },
+	login: { screen: LoginScreen, navigationOptions: { header: null }},
+	signUp: { screen: RegisterScreen, navigationOptions: { header: null }},
+	syllabus: { screen: SyllabusScreen},
+
 }, { initialRouteName: "login" });
 
 export const navReducer = createNavigationReducer(Navigator);

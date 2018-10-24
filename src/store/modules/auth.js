@@ -17,16 +17,17 @@ export const DUPLICATE_ACCOUNT = "DUPLICATE_ACCOUNT";
 // =================
 
 export const loginUserAction = (name, password) => (dispatch) => {
+		console.log('name', name);
+		console.log('password', password);
 		try {
 			db.transaction((tx) => {
-				tx.executeSql(`SELECT * FROM users WHERE name='${name}' AND password=${password}`, [], (results) => {
+				tx.executeSql("SELECT * FROM users WHERE name='" + name + "' AND password=" + password, [], (tx, results) => {
 					// Get rows with Web SQL Database spec compliance.
 					const len = results.rows.length;
+					if (len > 0) {
 					const row = results.rows.item(0);
-					console.log(row);
 					const username = row.name;
 					const { id } = row;
-					if (len > 0) {
 						dispatch({
 							type: AUTHENTICATION_SUCCESS,
 							payload: {
@@ -36,6 +37,14 @@ export const loginUserAction = (name, password) => (dispatch) => {
 							},
 						});
 					} 
+					else {
+						dispatch({
+							type: AUTHENTICATION_FAILURE,
+							payload: {
+								errorMessage: "User does not exist. Please try again.",
+							},
+						});
+					}
 				});
 			});
 		} catch(e) {
@@ -121,6 +130,7 @@ export function authReducer(state = initialState, action) {
 	case "AUTHENTICATION_SUCCESS": {
 		return Object.assign({}, state, {
 			auth: {
+				...state.auth,
 				isAuthenticated: action.payload.isAuthenticated,
 				username: action.payload.username,
 				id: action.payload.id,
@@ -130,13 +140,15 @@ export function authReducer(state = initialState, action) {
 	case "AUTHENTICATION_FAILURE": {
 		return Object.assign({}, state, {
 			auth: {
-				isAuthenticated: action.payload.isAuthenticated,
+				...state.auth,
+				errorMessage: action.payload.errorMessage,
 			},
 		});
 	}
 	case "SIGNUP_SUCCESS": {
 		return Object.assign({}, state, {
 			auth: {
+				...state.auth,
 				message: action.payload.message,
 			},
 		});
@@ -144,6 +156,7 @@ export function authReducer(state = initialState, action) {
 	case "SIGNUP_FAILURE": {
 		return Object.assign({}, state, {
 			auth: {
+				...state.auth,
 				errorMessage: action.payload.errorMessage,
 				error: action.payload.error,
 			},
@@ -152,6 +165,7 @@ export function authReducer(state = initialState, action) {
 	case "DUPLICATE_ACCOUNT": {
 		return Object.assign({}, state, {
 			auth: {
+				...state.auth,
 				message: action.payload.message,
 			},
 		});
@@ -159,6 +173,7 @@ export function authReducer(state = initialState, action) {
 	case "CLEAR_ERRORS": {
 		return Object.assign({}, state, {
 			auth: {
+				...state.auth,
 				errorMessage: '',
 				error: '',
 				message: '',

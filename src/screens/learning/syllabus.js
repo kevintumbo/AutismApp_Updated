@@ -3,15 +3,14 @@ import { View, Text, ScrollView } from "react-native";
 import SQLite from "react-native-sqlite-storage";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+import { selectSyllabus } from "../../store/modules/syllabus";
 import SyllabusOutput from "../../components/learning/syllabusList";
-import { selectSyllabus } from "../../store/actions/syllabus";
 import syllabusStyles from "./styles/syllabusStyles.styles";
 
 
 class SyllabusScreen extends Component {
 	static propTypes = {
 		selectedSyllabus: PropTypes.func.isRequired,
-		navigator: PropTypes.object.isRequired,
 	}
 	constructor(props) {
 		super(props);
@@ -20,7 +19,7 @@ class SyllabusScreen extends Component {
 		};
 	}
 
-	componentWillMount() {
+	componentDidMount() {
 		const db = SQLite.openDatabase(
 			{ name: "app.db", createFromLocation: "~app.db" },
 			this.openCB, this.successCB(), this.errorCB,
@@ -40,10 +39,6 @@ class SyllabusScreen extends Component {
 
 		onSelectSyllabus = (syllabusId) => {
 			this.props.selectedSyllabus(syllabusId);
-			this.props.navigator.push({
-				screen: "AutismApplication.UnitScreen",
-				title: "Unit page",
-			});
 		};
 
 		errorCB = (err) => {
