@@ -5,14 +5,17 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import syllabusProgressListStyles from "./styles/syllabusProgressListStyles";
 
 const syllabusProgressListOutput = props => (
-	<TouchableOpacity onPress={props.onPress}>
+	<TouchableOpacity 
+		onPress={props.onPress} 
+		style={syllabusProgressListStyles.button}
+	>
 		<View style={syllabusProgressListStyles.syllabusListOption}>
 			<Icon
 				name="book"
-				size={20}
-				color="#000"
+				size={35}
+				color="#fff"
 			/>
-			<Text>
+			<Text style={syllabusProgressListStyles.syllabusListOptionTitle}>
 				{props.syllabus}
 			</Text>
 			<ProgressCircle
@@ -23,12 +26,12 @@ const syllabusProgressListOutput = props => (
 				shadowColor="#999"
 				bgColor="#fff"
 			>
-				<Text style={{ fontSize: 12 }}>{`${props.progress}%`}</Text>
+				<Text style={{ fontSize: 20 }}>{`${props.progress}%`}</Text>
 			</ProgressCircle>
 			<Icon
 				name="chevron-right"
-				size={20}
-				color="#000"
+				size={35}
+				color="#fff"
 			/>
 		</View>
 	</TouchableOpacity>

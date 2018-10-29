@@ -9,7 +9,7 @@ import SuccessModal from "../../components/tabs/modals/successModal";
 import FailureModal from "../../components/tabs/modals/failureModal";
 import CompletionModal from "../../components/tabs/modals/completionModal";
 import questionStyles from "./styles/questionStyles.styles";
-import { getSyllabusAction } from "../progress/actions/progress";
+import { getSyllabusAction } from "../../store/modules/progress";
 
 const db = SQLite.openDatabase(
 	{ name: "app.db", createFromLocation: "~app.db" },
@@ -21,7 +21,7 @@ class QuestionScreen extends Component {
 	};
 
 	static propTypes = {
-		navigator: PropTypes.object.isRequired,
+		navigation: PropTypes.object.isRequired,
 		selected_unit: PropTypes.number.isRequired,
 		syllabusId: PropTypes.number.isRequired,
 		userId: PropTypes.number.isRequired,
@@ -98,10 +98,7 @@ class QuestionScreen extends Component {
 
 	closeCompletionModal = () => {
 		this.setState({ completionModalVisible: false });
-		this.props.navigator.pop({
-			animated: true,
-			animationType: "fade",
-		});
+		this.props.navigation.goBack();
 	};
 
 	repeatUnitHandler = () => {
@@ -190,9 +187,9 @@ class QuestionScreen extends Component {
 }
 
 const mapStateToProps = state => ({
-	selected_unit: state.unit.selected_unit,
-	syllabusId: state.syllabus.selected_syllabus,
-	userId: state.auth.id,
+	selected_unit: state.syllabusReducer.syllabus.selected_unit,
+	syllabusId: state.syllabusReducer.syllabus.selected_syllabus,
+	userId: state.authReducer.auth.id,
 });
 
 const mapDispatchToProps = {

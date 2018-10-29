@@ -16,7 +16,7 @@ export const selectSyllabus = (syllabus_id) => (dispatch) =>  {
 	});
 };
 
-export const selectUnit = (unit_id) => {
+export const selectUnit = (unit_id)  => (dispatch) => {
     dispatch({
         type: SELECT_UNIT,
         unit_id: unit_id,

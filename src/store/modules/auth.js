@@ -17,8 +17,6 @@ export const DUPLICATE_ACCOUNT = "DUPLICATE_ACCOUNT";
 // =================
 
 export const loginUserAction = (name, password) => (dispatch) => {
-		console.log('name', name);
-		console.log('password', password);
 		try {
 			db.transaction((tx) => {
 				tx.executeSql("SELECT * FROM users WHERE name='" + name + "' AND password=" + password, [], (tx, results) => {
@@ -48,7 +46,6 @@ export const loginUserAction = (name, password) => (dispatch) => {
 				});
 			});
 		} catch(e) {
-			console.log(e)
 			const message = "Name or password is wrong. Try Again.";
 			dispatch({
 				type: AUTHENTICATION_FAILURE,

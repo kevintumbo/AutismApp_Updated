@@ -12,6 +12,7 @@ class SyllabusScreen extends Component {
 	static propTypes = {
 		selectedSyllabus: PropTypes.func.isRequired,
 	}
+
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -39,6 +40,7 @@ class SyllabusScreen extends Component {
 
 		onSelectSyllabus = (syllabusId) => {
 			this.props.selectedSyllabus(syllabusId);
+			this.props.navigation.navigate('unit');
 		};
 
 		errorCB = (err) => {
