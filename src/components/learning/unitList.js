@@ -4,20 +4,20 @@ import Icon from "react-native-vector-icons/FontAwesome";
 import unitOutputStyles from "./styles/unitList.styles";
 
 const UnitOutput = props => (
-	<TouchableOpacity onPress={props.onPress}>
+	<TouchableOpacity onPress={props.onPress} style={unitOutputStyles.button}>
 		<View style={unitOutputStyles.unitListOption}>
 			<Icon
 				name="book"
-				size={20}
-				color="#000"
+				size={35}
+				color="#fff"
 			/>
-			<Text>
+			<Text style={unitOutputStyles.unitListOptionTitle}>
 				{props.unit.unit_name}
 			</Text>
 			<Icon
 				name="chevron-right"
-				size={20}
-				color="#000"
+				size={35}
+				color="#fff"
 			/>
 		</View>
 	</TouchableOpacity>

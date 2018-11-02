@@ -68,13 +68,13 @@ class UnitScreen extends Component {
 		));
 
 		return (
-			<ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-				<View style={unitStyles.container}>
-					<View style={unitStyles.unitList}>
+			<View style={unitStyles.container}>
+				<View style={unitStyles.unitList}>
+					<ScrollView contentContainerStyle={{ flexGrow: 1 }}>
 						{list}
-					</View>
+					</ScrollView>
 				</View>
-			</ScrollView>
+			</View>
 		);
 	}
 }
