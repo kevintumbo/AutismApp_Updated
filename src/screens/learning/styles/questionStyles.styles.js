@@ -3,8 +3,10 @@ import { StyleSheet } from "react-native";
 const questionStyles = StyleSheet.create({
 	container: {
 		flex: 1,
+		flexDirection: 'column',
 		alignItems: "center",
-		backgroundColor: "#00ecff",
+        justifyContent: 'center',
+		backgroundColor: "#fff",
 		paddingBottom: "5%",
 	},
 });

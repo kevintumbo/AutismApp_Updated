@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { ScrollView, View, Text } from "react-native";
+import { View, Text } from "react-native";
 import PropTypes from "prop-types";
 import SQLite from "react-native-sqlite-storage";
 import ProgressCircle from "react-native-progress-circle";
@@ -152,36 +152,33 @@ class QuestionScreen extends Component {
 			/>
 		));
 		return (
-			<ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-				<View style={questionStyles.container}>
-					<SuccessModal
-						modalVisible={this.state.successModalVisible}
-						closeModal={() => this.closeSuccessModal()}
-						nextQuestion={() => this.nextQuestionHandler()}
-					/>
-					<FailureModal
-						modalVisible={this.state.failureModalVisible}
-						closeModal={() => this.closeFailureModal()}
-					/>
-					<CompletionModal
-						modalVisible={this.state.completionModalVisible}
-						chooseAnotherUnit={() => this.closeCompletionModal()}
-						repeatUnit={() => this.repeatUnitHandler()}
-					/>
-					<ProgressCircle
-						percent={this.state.progress}
-						radius={50}
-						borderWidth={8}
-						color="#3399FF"
-						shadowColor="#999"
-						bgColor="#fff"
-					>
-						<Text style={{ fontSize: 18 }}>{`${this.state.progress}%`}</Text>
-					</ProgressCircle>
-					{question}
-				</View>
-			</ScrollView>
-
+			<View style={questionStyles.container}>
+				<SuccessModal
+					modalVisible={this.state.successModalVisible}
+					closeModal={() => this.closeSuccessModal()}
+					nextQuestion={() => this.nextQuestionHandler()}
+				/>
+				<FailureModal
+					modalVisible={this.state.failureModalVisible}
+					closeModal={() => this.closeFailureModal()}
+				/>
+				<CompletionModal
+					modalVisible={this.state.completionModalVisible}
+					chooseAnotherUnit={() => this.closeCompletionModal()}
+					repeatUnit={() => this.repeatUnitHandler()}
+				/>
+				<ProgressCircle
+					percent={this.state.progress}
+					radius={50}
+					borderWidth={8}
+					color="#3399FF"
+					shadowColor="#999"
+					bgColor="#fff"
+				>
+					<Text style={{ fontSize: 18 }}>{`${this.state.progress}%`}</Text>
+				</ProgressCircle>
+				{question}
+			</View>
 		);
 	}
 }
