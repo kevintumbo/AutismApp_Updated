@@ -13,6 +13,16 @@ const unitOutputStyles = StyleSheet.create({
 		justifyContent: "space-between",
 		paddingTop: "3%",
 		paddingBottom: "3%",
+		paddingLeft: "10%",
+		paddingRight: "10%",
+	},
+	unitProgressListOption: {
+		flexDirection: "row",
+		justifyContent: "space-between",
+		paddingTop: "3%",
+		paddingBottom: "3%",
+		paddingLeft: "10%",
+		paddingRight: "10%",
 	},
 	unitListOptionTitle: {
 		color: "#fff",

@@ -120,6 +120,7 @@ export const getUnitProgressAction = (syllabusId, userId) => (async (dispatch) =
                 unitProgressList,
             });
 		}
+		console.log('unitProgressList',unitProgressList);
 	} catch (e) {
 		console.log('error');
 	}
@@ -133,7 +134,7 @@ export const initialState = {
     syllabus: {
         syllabusProgress: [],
 	    selectedSyllabus: null,
-	    selectedUnitProgress: null,
+	    selectedUnitProgress: [],
     }
 };
 

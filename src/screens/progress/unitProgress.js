@@ -16,55 +16,41 @@ class UnitProgressScreen extends Component {
 	};
 
 	static defaultProps = {
-		unitsProgress: null,
-	}
-
-	state = {
-		loading: "false",
+		unitsProgress: [],
 	}
 
 	async componentDidMount() {
 		await this.props.getUnitProgressAction(this.props.selectedSyllabus, this.props.userId);
-		this.setState({loading: 'true'});
+	}
+
+	showList = () =>  {
+		this.setState({loading: 'false'});
 	}
 
 	render() {
-		if (this.state.loading === "true") {
-			const list = this.props.unitsProgress.map(unit => (
-				<UnitProgressListOutput
-					key={unit.unit_id}
-					unit={unit.unit_name}
-					progress={unit.Progress}
-				/>
-			));
+		const list = this.props.unitsProgress.map(unit => (
+			<UnitProgressListOutput
+				key={unit.unit_id}
+				unit={unit.unit_name}
+				progress={unit.Progress}
+			/>
+		));
 			return (
-				<ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-					<View style={unitStyles.container}>
-						<View style={unitStyles.unitList}>
-							{list}
-						</View>
-					</View>
-				</ScrollView>
+			<View style={unitStyles.container}>
+				<View style={unitStyles.unitList}>
+					<ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+						{list}
+					</ScrollView>
+				</View>
+			</View>
 			);
 		}
-		return (
-			<ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-				<View style={unitStyles.container}>
-					<View style={unitStyles.unitList}>
-						<Text>
-							kevin
-						</Text>
-					</View>
-				</View>
-			</ScrollView>
-		);
 	}
-}
 
 const mapStateToProps = state => ({
-	user_id: state.authReducer.auth.id,
-	selectedSyllabus: state.syllabusProgressReducer.syllabus.syllabusProgress.selectedSyllabus,
-	unitsProgress: state.syllabusProgressReducer.syllabus.syllabusProgress.selectedUnitProgress,
+	userId: state.authReducer.auth.id,
+	selectedSyllabus: state.syllabusProgressReducer.syllabus.selectedSyllabus,
+	unitsProgress: state.syllabusProgressReducer.syllabus.selectedUnitProgress,
 });
 
 const mapDispatchToProps = {
