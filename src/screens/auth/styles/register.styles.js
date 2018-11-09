@@ -4,20 +4,24 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1,
 		backgroundColor: "#ffffff",
-        justifyContent: 'center',
         alignItems: 'center',
+	},
+	inputView: {
+		flexDirection: "column",
+		height: "80%",
+		width: "80%",
+		marginBottom: "1%",
+		marginTop: "5%",
+	},
+	header: {
+		alignItems: "center",
+		paddingTop: "3%",
+		paddingBottom: "3%",
 	},
 	heading: {
 		color: "#00ecff",
 		fontSize: 50,
 		fontWeight: "bold",
-	},
-	inputView: {
-		width: "80%",
-		marginBottom: "1%",
-		flex: 1,
-		justifyContent: 'center',
-        alignItems: 'center',
 	},
 	textInput: {
 		width: "100%",
@@ -30,7 +34,7 @@ const styles = StyleSheet.create({
 	pageButtons: {
 		flex: 1, 
 		flexDirection: 'row',
-		width: "80%",
+		width: "100%",
 		justifyContent:"space-evenly",
 	},
 	loginButton: {

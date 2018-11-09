@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { TouchableOpacity, View, Text, TextInput } from "react-native";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { connect } from "react-redux";
 import validator from "../../utility/validation";
 import logStyles from "./styles/login.styles";
@@ -74,47 +75,52 @@ class LoginScreen extends Component {
 
 	render() {
 		return (
-			<View style={logStyles.container}>
-				<View style={logStyles.inputView}>
-					<Text style={logStyles.heading}>
-						Autism Learning App
-					</Text>
-					<TextInput
-						style={logStyles.textInput}
-						placeholder="Username"
-						value={this.state.name.value}
-						onChangeText={val => this.updateInputState("name", val)}
-					/>
-					<TextInput
-						style={logStyles.textInput}
-						placeholder="Password"
-						value={this.state.password.value}
-						onChangeText={val => this.updateInputState("password", val)}
-					/>
-				</View>
-				<View style={logStyles.pageButtons}>
-					<View style={logStyles.signUp}> 
-						<Text style={logStyles.text}>
-							Don't have an account?
-						</Text>
-						<TouchableOpacity
-							onPress={this.signUp}
-							style={logStyles.button}
-						>
-							<Text style={logStyles.buttonText}> Create An Account </Text>
-						</TouchableOpacity>
+			<KeyboardAwareScrollView
+			contentContainerStyle={logStyles.container}
+			enableOnAndroid={true}>
+					<View style={logStyles.inputView}>
+						<View style={logStyles.header}>
+							<Text style={logStyles.heading}>
+								Autism Learning App
+							</Text>
+						</View>
+						<View>
+							<TextInput
+								style={logStyles.textInput}
+								placeholder="Username"
+								value={this.state.name.value}
+								onChangeText={val => this.updateInputState("name", val)}
+							/>
+							<TextInput
+								style={logStyles.textInput}
+								placeholder="Password"
+								value={this.state.password.value}
+								onChangeText={val => this.updateInputState("password", val)}
+							/>
+						</View>
+						<View style={logStyles.pageButtons}>
+							<View style={logStyles.signUp}> 
+								<Text style={logStyles.text}>
+									Don't have an account?
+								</Text>
+								<TouchableOpacity
+									onPress={this.signUp}
+									style={logStyles.button}
+								>
+									<Text style={logStyles.buttonText}> Create An Account </Text>
+								</TouchableOpacity>
+							</View>
+							<View style={logStyles.loginButton}> 
+								<TouchableOpacity
+									onPress={this.login}
+									style={logStyles.button}
+								>
+									<Text style={logStyles.buttonText}> Log In </Text>
+								</TouchableOpacity>
+							</View>
+						</View>
 					</View>
-					<View style={logStyles.loginButton}> 
-						<TouchableOpacity
-							onPress={this.login}
-							style={logStyles.button}
-						>
-							<Text style={logStyles.buttonText}> Log In </Text>
-						</TouchableOpacity>
-					</View>
-				</View>
-
-			</View>
+			</KeyboardAwareScrollView>
 		);
 	}
 }

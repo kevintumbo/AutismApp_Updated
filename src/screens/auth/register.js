@@ -1,7 +1,6 @@
 import React, { Component } from "react";
-import { TouchableOpacity, Text, TextInput, View } from "react-native";
+import { TouchableOpacity, Text, TextInput, View, KeyboardAvoidingView } from "react-native";
 import { connect } from "react-redux";
-import AwesomeAlert from "react-native-awesome-alerts"
 import validator from "../../utility/validation";
 import { signUpAction, clearErrors } from "../../store/modules/auth";
 import styles from "./styles/register.styles";
@@ -101,70 +100,60 @@ class RegisterScreen extends Component {
 
 	render() {
 		return (
-			<View style={styles.container}>
-                <AwesomeAlert
-                    show={this.state.showAlert}
-                    showProgress={false}
-                    title="Hi there."
-                    message={this.state.message}
-                    closeOnTouchOutside={true}
-                    closeOnHardwareBackPress={false}
-                    showCancelButton={false}
-                    showConfirmButton={true}
-                    confirmText="OK"
-                    confirmButtonColor="#DD6B55"
-                    onConfirmPressed={() => {
-                        this.hideAlert();
-                    }}
-                />
-				<Text
-					style={styles.heading}
-				>
-					Autism Learning Application
-				</Text>
-				<View style={styles.inputView}>
-					<TextInput
-						style={styles.textInput}
-						placeholder="John Smith"
-						value={this.state.name.value}
-						onChangeText={val => this.updateInputState("name", val)}
-					/>
-					<TextInput
-						style={styles.textInput}
-						placeholder="johnsmith@gmail.com"
-						value={this.state.email.value}
-						onChangeText={val => this.updateInputState("email", val)}
-					/>
-					<TextInput
-						style={styles.textInput}
-						placeholder="Password"
-						value={this.state.password.value}
-						onChangeText={val => this.updateInputState("password", val)}
-					/>
-					
+			<KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
+				<View style={styles.container}>
+					<View style={styles.inputView}>
+						<View style={styles.header}>
+							<Text
+								style={styles.heading}
+							>
+								Autism Learning App
+							</Text>
+						</View>
+						<View>
+							<TextInput
+								style={styles.textInput}
+								placeholder="John Smith"
+								value={this.state.name.value}
+								onChangeText={val => this.updateInputState("name", val)}
+							/>
+							<TextInput
+								style={styles.textInput}
+								placeholder="johnsmith@gmail.com"
+								value={this.state.email.value}
+								onChangeText={val => this.updateInputState("email", val)}
+							/>
+							<TextInput
+								style={styles.textInput}
+								placeholder="Password"
+								value={this.state.password.value}
+								onChangeText={val => this.updateInputState("password", val)}
+							/>
+						</View>
+						<View style={styles.pageButtons}>
+							<View style={styles.signUp}> 
+								<Text style={styles.text}>
+									Already have an Account? Log In.
+								</Text>
+								<TouchableOpacity
+									onPress={this.Login}
+									style={styles.button}
+								>
+									<Text style={styles.buttonText}> Log in </Text>
+								</TouchableOpacity>
+							</View>
+							<View style={styles.loginButton}> 
+								<TouchableOpacity
+									onPress={this.SignUp}
+									style={styles.button}
+								>
+									<Text style={styles.buttonText}> Create Account </Text>
+								</TouchableOpacity>
+							</View>
+						</View>
+					</View>
 				</View>
-                <View style={styles.pageButtons}>
-                    <View style={styles.signUp}> 
-						<Text style={styles.text}>
-                            Already have an Account? Log In.
-						</Text>
-						<TouchableOpacity
-							onPress={this.Login}
-							style={styles.button}
-						>
-							<Text style={styles.buttonText}> Log in </Text>
-						</TouchableOpacity>
-					</View>
-                    <View style={styles.loginButton}> 
-						<TouchableOpacity
-							onPress={this.SignUp}
-							style={styles.button}
-						>
-							<Text style={styles.buttonText}> Create Account </Text>
-						</TouchableOpacity>
-					</View>
-                </View>
-			</View>
+			</KeyboardAvoidingView>
 		);
 	}
 }

@@ -2,22 +2,27 @@ import { StyleSheet } from "react-native";
 
 const logStyles = StyleSheet.create({
 	container: {
-		flex: 1,
+		flexGrow: 1,
 		backgroundColor: "#ffffff",
-        justifyContent: 'center',
         alignItems: 'center',
+	},
+	inputView: {
+		flex: 1,
+		flexDirection: "column",	
+		height: "80%",
+		width: "80%",
+		marginBottom: "1%",
+		marginTop: "10%",
+	},
+	header: {
+		alignItems: "center",
+		paddingTop: "3%",
+		paddingBottom: "3%",
 	},
 	heading: {
 		color: "#00ecff",
 		fontSize: 50,
 		fontWeight: "bold",
-	},
-	inputView: {
-		width: "80%",
-		marginBottom: "1%",
-		flex: 1,
-		justifyContent: 'center',
-        alignItems: 'center',
 	},
 	textInput: {
 		width: "100%",
@@ -30,7 +35,7 @@ const logStyles = StyleSheet.create({
 	pageButtons: {
 		flex: 1, 
 		flexDirection: 'row',
-		width: "80%",
+		width: "100%",
 		justifyContent:"space-evenly",
 	},
 	loginButton: {

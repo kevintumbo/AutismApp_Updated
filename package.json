@@ -12,6 +12,7 @@
     "react": "16.6.0-alpha.8af6728",
     "react-native": "^0.57.1",
     "react-native-awesome-alerts": "^1.1.1",
+    "react-native-keyboard-aware-scroll-view": "^0.7.4",
     "react-native-progress-circle": "^2.0.0",
     "react-native-sqlite-storage": "^3.3.6",
     "react-native-vector-icons": "^4.4.3",
@@ -49,7 +50,7 @@
   },
   "rnpm": {
     "assets": [
-	    "./assets/fonts/"
+      "./assets/fonts/"
     ]
   }
 }
