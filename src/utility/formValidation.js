@@ -34,8 +34,7 @@ const validate = (fieldName, value) => {
     const result = validation(formValues, formFields);
 
     if (result) {
-        console.log('result',result)
-        return result[fieldName][0]
+        return result[fieldName][0];
     }
 
     return null
