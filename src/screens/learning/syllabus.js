@@ -38,50 +38,50 @@ class SyllabusScreen extends Component {
 		});
 	}
 
-		onSelectSyllabus = (syllabusId) => {
-			this.props.selectedSyllabus(syllabusId);
-			this.props.navigation.navigate('unit');
-		};
+	onSelectSyllabus = (syllabusId) => {
+		this.props.selectedSyllabus(syllabusId);
+		this.props.navigation.navigate('unit');
+	};
 
-		errorCB = (err) => {
-			console.log(`SQL Error: ${err}`);
-		}
+	errorCB = (err) => {
+		console.log(`SQL Error: ${err}`);
+	}
 
-		successCB = () => {
-			console.log("SQL executed fine");
-		}
+	successCB = () => {
+		console.log("SQL executed fine");
+	}
 
-		openCB = () => {
-			console.log("Database OPENED");
-		}
+	openCB = () => {
+		console.log("Database OPENED");
+	}
 
-		render() {
-			const list = this.state.syllabus.map(syllabus => (
-				<SyllabusOutput
-					key={syllabus.id}
-					syllabus={syllabus}
-					onPress={() => this.onSelectSyllabus(syllabus.id)}
-				/>
-			));
+	render() {
+		const list = this.state.syllabus.map(syllabus => (
+			<SyllabusOutput
+				key={syllabus.id}
+				syllabus={syllabus}
+				onPress={() => this.onSelectSyllabus(syllabus.id)}
+			/>
+		));
 
-			return (
-				<ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-					<View style={syllabusStyles.container}>
-						<View style={syllabusStyles.syllabusList}>
-							<View style={syllabusStyles.syllabusListHeader}>
-								<Text style={syllabusStyles.syllabusListHeaderText}>
-									Learning App Contents
-								</Text>
-							</View>
-							<View>
-								{list}
-							</View>
-
+		return (
+			<ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+				<View style={syllabusStyles.container}>
+					<View style={syllabusStyles.syllabusList}>
+						<View style={syllabusStyles.syllabusListHeader}>
+							<Text style={syllabusStyles.syllabusListHeaderText}>
+								Learning App Contents
+							</Text>
 						</View>
+						<View>
+							{list}
+						</View>
+
 					</View>
-				</ScrollView>
-			);
-		}
+				</View>
+			</ScrollView>
+		);
+	}
 }
 
 

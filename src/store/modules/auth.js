@@ -11,6 +11,7 @@ export const SIGNUP_REQUEST = "SIGNUP_REQUEST";
 export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS";
 export const SIGNUP_FAILURE = "SIGNUP_FAILURE";
 export const DUPLICATE_ACCOUNT = "DUPLICATE_ACCOUNT";
+export const LOG_OUT = "LOG_OUT";
 
 // =================
 // ACTION CREATORS (trigger dispatch)
@@ -100,6 +101,21 @@ export const clearErrors = () => (dispatch) => {
 	});
 }
 
+export const logoutAction = () => (dispatch) => {
+	dispatch({
+		type: LOG_OUT,
+		payload: {
+			isAuthenticated: false,
+			username: null,
+			id: null,
+			message: null,
+			errorMessage: null,
+			error: null,
+		}
+	});
+
+}
+
 // ====================
 // Initial state
 // ====================
@@ -176,6 +192,12 @@ export function authReducer(state = initialState, action) {
 				message: '',
 			},
 		});
+	}
+	case "LOG_OUT": {
+		return Object.assign({}, state, {
+			...state.auth,
+			...action.payload,
+		})
 	}
 	default: return state;
 	}

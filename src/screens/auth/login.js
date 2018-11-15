@@ -5,7 +5,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { connect } from "react-redux";
 import validate from "../../utility/formValidation";
 import logStyles from "./styles/login.styles";
-import { loginUserAction } from "../../store/modules/auth";
+import { loginUserAction, logoutAction } from "../../store/modules/auth";
 
 class LoginScreen extends Component {
 	static propTypes = {
@@ -22,7 +22,7 @@ class LoginScreen extends Component {
 			username: '',
             usernameError: '',
 			password: '',
-            passwordError: '',
+			passwordError: '',
 		};
 	}
 
@@ -37,15 +37,30 @@ class LoginScreen extends Component {
             ...prevState,
             [key]: value,
         }));
-    };
+	};
 
 	static getDerivedStateFromProps(props, state) {
-		console.log(props);
 		if (props.errorMessage) {
 			this.showAlert(props.errorMessage);
 		}
         if(props.isAuthenticated) {
-            props.navigation.navigate('syllabus');
+			props.navigation.navigate('drawerStack', {},  {
+				type: "Navigate",
+				routeName: "syllabus",
+				params: { name: props.name, signOut: () => {
+					Alert.alert(   // Shows up the alert without redirecting anywhere
+						'Confirmation required'
+						,'Do you really want to logout?'
+						,[
+						  {text: 'Accept', onPress: () => { 
+								props.logout();
+								props.navigation.navigate('login');
+						  }},
+						  {text: 'Cancel'}
+						 ]
+					);
+				}}
+			  });
 		}
 		
         return null;
@@ -138,12 +153,14 @@ class LoginScreen extends Component {
 
 const mapStateToProps = state => ({
 	isAuthenticated: state.authReducer.auth.isAuthenticated,
+	name: state.authReducer.auth.username,
 	message: state.authReducer.auth.message,
     errorMessage: state.authReducer.auth.errorMessage,
 })
 
 const mapDispatchToProps = dispatch =>({
 	loginUserAction: (name, password) => dispatch(loginUserAction(name, password)),
+	logout: () => dispatch(logoutAction()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);

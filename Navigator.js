@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Text } from "react-native";
+import { Text, Button } from "react-native";
 import { createStackNavigator, createDrawerNavigator } from "react-navigation";
 import {
 	reduxifyNavigator,
@@ -44,13 +44,20 @@ const DrawerNavigation = createStackNavigator({
 }, {
 	navigationOptions: ({navigation}) => ({
 		headerStyle: {},
-		headerLeft: <Text onPress={() => navigation.toggleDrawer()}>Menu</Text>
+		headerLeft: <Text onPress={() => navigation.toggleDrawer()}>Menu</Text>,
+		headerTitle:   `Hello ${navigation.state.params.name}`,
+		  headerRight: 
+			<Button
+			  onPress={navigation.state.params.signOut}
+			  title="logout"
+			  color="#000"
+			/>
 	  })
 });
 
 export const Navigator = createStackNavigator({
 	loginStack: { screen: loginStack, navigationOptions: { header: null } },
-	drawerStack: { screen: DrawerNavigation, navigationOptions: { header: null } },
+	drawerStack: { screen: DrawerNavigation, navigationOptions: { header: null }},
 	questionStack: { screen: questionNavigation },
 	progressStack: { screen: progressNavigation },
 
