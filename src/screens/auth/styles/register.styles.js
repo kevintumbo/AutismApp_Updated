@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
 	},
 	textInput: {
 		width: "100%",
-		marginBottom: "5%",
+		marginBottom: "3%",
 		fontSize: 25,
 		color: "#000",
 		borderBottomColor: "#00ecff",
@@ -61,6 +61,11 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		color: "#00ecff",
 		fontSize: 25,
+	},
+	errorText: {
+		marginTop: 0,
+		fontSize: 20,
+		color: "#f00"
 	},
 	alertContainerStyle: {
 		width: 275,

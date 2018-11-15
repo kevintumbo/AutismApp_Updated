@@ -1,53 +1,53 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { TouchableOpacity, View, Text, TextInput } from "react-native";
+import { Alert, TouchableOpacity, View, Text, TextInput } from "react-native";
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { connect } from "react-redux";
-import validator from "../../utility/validation";
+import validate from "../../utility/formValidation";
 import logStyles from "./styles/login.styles";
 import { loginUserAction } from "../../store/modules/auth";
 
 class LoginScreen extends Component {
 	static propTypes = {
 		loginUserAction: PropTypes.func.isRequired,
+		errorMessage: PropTypes.string,
+	}
+
+	static defaultProps = {
+		errorMessage: '',
 	}
 	constructor(props) {
 		super(props);
 		this.state = {
-			name: {
-				value: "",
-				valid: false,
-				validationRules: {
-					isName: true,
-				},
-			},
-			password: {
-				value: "",
-				valid: false,
-				validationRules: {
-					minLength: 6,
-				},
-			},
-			showAlert: false,
+			username: '',
+            usernameError: '',
+			password: '',
+            passwordError: '',
 		};
 	}
 
+	showAlert = message =>{
+		Alert.alert(
+			message
+		);
+	}
+
 	updateInputState = (key, value) => {
-		this.setState(prevState => ({
-			...prevState,
-			[key]: {
-				...prevState[key],
-				value,
-				valid: validator(value, prevState[key].validationRules),
-			},
-		}
-		));
-	};
+        this.setState(prevState => ({
+            ...prevState,
+            [key]: value,
+        }));
+    };
 
 	static getDerivedStateFromProps(props, state) {
+		console.log(props);
+		if (props.errorMessage) {
+			this.showAlert(props.errorMessage);
+		}
         if(props.isAuthenticated) {
             props.navigation.navigate('syllabus');
-        }
+		}
+		
         return null;
     }
 
@@ -56,21 +56,19 @@ class LoginScreen extends Component {
 	};
 
 	login = () => {
-		const nameToCheck = this.state.name.value;
-		const passwordToCheck = this.state.password.value;
-		this.props.loginUserAction(nameToCheck, passwordToCheck);
-	};
+		const usernameError = validate('username', this.state.username);
+		const passwordError = validate('password', this.state.password);
 
-	showAlert = () => {
 		this.setState({
-			showAlert: true,
-		});
-	};
+            usernameError: usernameError,
+            passwordError: passwordError,
+		})
 
-	hideAlert = () => {
-		this.setState({
-			showAlert: false,
-		});
+		if (!usernameError && !passwordError) {
+            const username = this.state.username;
+			const password = this.state.password;
+			this.props.loginUserAction(username, password);
+        }
 	};
 
 	render() {
@@ -88,15 +86,28 @@ class LoginScreen extends Component {
 							<TextInput
 								style={logStyles.textInput}
 								placeholder="Username"
-								value={this.state.name.value}
-								onChangeText={val => this.updateInputState("name", val)}
+								value={this.state.username}
+								onChangeText={val => this.updateInputState("username", val)}
+								onBlur={() => {
+									this.setState({
+										usernameError: validate('username', this.state.username)
+									})
+								}}
 							/>
+							<Text style={logStyles.errorText}>{this.state.usernameError}</Text>
 							<TextInput
 								style={logStyles.textInput}
 								placeholder="Password"
-								value={this.state.password.value}
+								value={this.state.password}
 								onChangeText={val => this.updateInputState("password", val)}
+								secureTextEntry={true}
+								onBlur={() => {
+									this.setState({
+	 									passwordError: validate('password', this.state.password)	
+									})
+								}}
 							/>
+							<Text style={logStyles.errorText}>{this.state.passwordError}</Text>
 						</View>
 						<View style={logStyles.pageButtons}>
 							<View style={logStyles.signUp}> 

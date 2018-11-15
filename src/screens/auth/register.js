@@ -1,106 +1,67 @@
-import React, { Component } from "react";
-import { TouchableOpacity, Text, TextInput, View, KeyboardAvoidingView } from "react-native";
+import React, { Component } from "React";
+import { Alert, TouchableOpacity, Text, TextInput, View, KeyboardAvoidingView } from "react-native";
 import { connect } from "react-redux";
-import validator from "../../utility/validation";
 import { signUpAction, clearErrors } from "../../store/modules/auth";
 import styles from "./styles/register.styles";
+import validate from "../../utility/formValidation";
 
 class RegisterScreen extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-            showAlert: false,
-            isLoggedIn: false,
-            message: null,
-			name: {
-				value: "",
-				valid: false,
-				validationRules: {
-					isName: true,
-				},
-			},
-			email: {
-				value: "",
-				valid: false,
-				validationRules: {
-					isEmail: true,
-				},
-			},
-			password: {
-				value: "",
-				valid: false,
-				validationRules: {
-					minLength: 6,
-				},
-			},
-		};
-    }
-    
-    static getDerivedStateFromProps(props, state) {
-        if(props.message) {
-            return {
-                ...state,
-                showAlert: true,
-                message: props.message,
-            }
-        }
-        return null;
-    }
+    constructor(props){
+        super(props);
+        this.state = {
+            username: '',
+            usernameError: '',
+            email: '',
+            emailError: '',
+            password: '',
+            passwordError: '',
+		}
+		this.signUp = this.signUp.bind(this);
+	}
 
-	Login = () => {
+	componentDidUpdate(prevProps) {
+		if(this.props.message !== prevProps.message)
+			this.showAlert(this.props.message);
+	  	}
+	
+	showAlert = message =>{
+		Alert.alert(
+			message
+		);
+	 }
+
+    updateInputState = (key, value) => {
+        this.setState(prevState => ({
+            ...prevState,
+            [key]: value,
+        }));
+    };
+
+    login = () => {
 		this.props.navigation.navigate('login');
-	};
-
-	updateInputState = (key, value) => {
-		this.setState(prevState => ({
-			...prevState,
-			[key]: {
-				...prevState[key],
-				value,
-				valid: validator(value, prevState[key].validationRules),
-			},
-		}));
-	};
-
-	SignUp = () => {
-        const name = this.state.name.value;
-        const password = this.state.password.value;
-        this.props.signUpAction(name, password);
-	};
-
-	errorCB = (err) => {
-		console.log(`SQL Error: ${err}`);
-	}
-
-	successCB = () => {
-		console.log("SQL executed fine");
-	}
-
-	openCB = () => {
-		console.log("Database OPENED");
-    }
+    };
     
-    showAlert = () => {
+    async signUp() {
+        const usernameError = validate('username', this.state.username);
+        const emailError = validate('email', this.state.email);
+		const passwordError = validate('password', this.state.password);
+
         this.setState({
-          showAlert: true
-        });
-      };
-    
-    hideAlert = () => {
-        if (this.props.message === 'Congratulations. You can now login.'){
-            this.setState({
-                showAlert: false
-            });
-            this.props.clearErrors();
-            this.props.navigation.navigate('login');
-        } else {
-            this.props.clearErrors();
+            usernameError: usernameError,
+            emailError: emailError,
+            passwordError: passwordError,
+        })
+
+        if (!usernameError && !emailError && !passwordError) {
+            const username = this.state.username;
+            const password = this.state.password;
+			await this.props.signUpAction(username, password);
         }
     };
 
-	render() {
-		return (
-			<KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
+    render(){
+        return(
+            <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
 				<View style={styles.container}>
 					<View style={styles.inputView}>
 						<View style={styles.header}>
@@ -114,21 +75,40 @@ class RegisterScreen extends Component {
 							<TextInput
 								style={styles.textInput}
 								placeholder="John Smith"
-								value={this.state.name.value}
-								onChangeText={val => this.updateInputState("name", val)}
+								value={this.state.username}
+								onChangeText={val => this.updateInputState("username", val)}
+								onBlur={() => {
+									this.setState({
+										usernameError: validate('username', this.state.username)
+									})
+								}}
 							/>
+                            <Text style={styles.errorText}>{this.state.usernameError}</Text>
 							<TextInput
 								style={styles.textInput}
 								placeholder="johnsmith@gmail.com"
-								value={this.state.email.value}
+								value={this.state.email}
 								onChangeText={val => this.updateInputState("email", val)}
+								onBlur={() => {
+									this.setState({
+										emailError: validate('email', this.state.email)
+									})
+								}}
 							/>
+                            <Text style={styles.errorText}>{this.state.emailError}</Text>
 							<TextInput
 								style={styles.textInput}
 								placeholder="Password"
-								value={this.state.password.value}
+								value={this.state.password}
 								onChangeText={val => this.updateInputState("password", val)}
+								onBlur={() => {
+									this.setState({
+	 									passwordError: validate('password', this.state.password)	
+									})
+								}}
+                                secureTextEntry={true}
 							/>
+                            <Text style={styles.errorText}>{this.state.passwordError}</Text>
 						</View>
 						<View style={styles.pageButtons}>
 							<View style={styles.signUp}> 
@@ -136,7 +116,7 @@ class RegisterScreen extends Component {
 									Already have an Account? Log In.
 								</Text>
 								<TouchableOpacity
-									onPress={this.Login}
+									onPress={this.login}
 									style={styles.button}
 								>
 									<Text style={styles.buttonText}> Log in </Text>
@@ -144,7 +124,7 @@ class RegisterScreen extends Component {
 							</View>
 							<View style={styles.loginButton}> 
 								<TouchableOpacity
-									onPress={this.SignUp}
+									onPress={this.signUp}
 									style={styles.button}
 								>
 									<Text style={styles.buttonText}> Create Account </Text>
@@ -154,8 +134,8 @@ class RegisterScreen extends Component {
 					</View>
 				</View>
 			</KeyboardAvoidingView>
-		);
-	}
+        );
+    }
 }
 
 const mapDispatchToProps = dispatch => ({

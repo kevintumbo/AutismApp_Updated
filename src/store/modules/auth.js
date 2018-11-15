@@ -16,10 +16,11 @@ export const DUPLICATE_ACCOUNT = "DUPLICATE_ACCOUNT";
 // ACTION CREATORS (trigger dispatch)
 // =================
 
-export const loginUserAction = (name, password) => (dispatch) => {
+export const loginUserAction = (name, password) => async (dispatch) => {
 		try {
-			db.transaction((tx) => {
+			await db.transaction((tx) => {
 				tx.executeSql("SELECT * FROM users WHERE name='" + name + "' AND password=" + password, [], (tx, results) => {
+					console.log('results', results);
 					// Get rows with Web SQL Database spec compliance.
 					const len = results.rows.length;
 					if (len > 0) {
@@ -56,9 +57,9 @@ export const loginUserAction = (name, password) => (dispatch) => {
 		}
 	};
 
-export const signUpAction = (name, password)  => (dispatch) => {
+export const signUpAction = (name, password)  => async (dispatch) => {
 	try {
-		db.transaction((tx) => {
+		await db.transaction((tx) => {
 			tx.executeSql("SELECT * FROM users WHERE name='" + name + "' AND password=" + password, [], (tx, results) => {
 				// Get rows with Web SQL Database spec compliance.
 				const len = results.rows.length;
@@ -82,7 +83,6 @@ export const signUpAction = (name, password)  => (dispatch) => {
 			});
 		});
 	} catch(e) {
-		console.log(e)
 		const message = "Error signing up.";
 		dispatch({
 			type: SIGNUP_FAILURE,

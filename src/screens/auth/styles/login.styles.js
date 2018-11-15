@@ -26,7 +26,7 @@ const logStyles = StyleSheet.create({
 	},
 	textInput: {
 		width: "100%",
-		marginBottom: "5%",
+		marginBottom: "3%",
 		fontSize: 25,
 		color: "#000",
 		borderBottomColor: "#00ecff",
@@ -57,6 +57,10 @@ const logStyles = StyleSheet.create({
 	buttonText: {
 		color: "#fff",
 		fontSize: 25,
+	},
+	errorText: {
+		fontSize: 20,
+		color: "#f00"
 	},
 	text: {
 		alignItems: "center",
