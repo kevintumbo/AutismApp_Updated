@@ -7,7 +7,6 @@ import { selectSyllabus } from "../../store/modules/syllabus";
 import SyllabusOutput from "../../components/learning/syllabusList";
 import syllabusStyles from "./styles/syllabusStyles.styles";
 
-
 class SyllabusScreen extends Component {
 	static propTypes = {
 		selectedSyllabus: PropTypes.func.isRequired,

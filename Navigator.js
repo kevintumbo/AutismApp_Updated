@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { Text, Button } from "react-native";
+import { Text, Button, View } from "react-native";
 import { createStackNavigator, createDrawerNavigator } from "react-navigation";
 import {
 	reduxifyNavigator,
@@ -15,6 +15,8 @@ import SyllabusProgressScreen from "./src/screens/progress/syllabusProgress";
 import UnitProgressScreen from "./src/screens/progress/unitProgress";
 import UnitScreen from "./src/screens/learning/unit";
 import QuestionScreen from "./src/screens/learning/question";
+import DrawerContainer from "./src/components/drawer/DrawerContainer";
+import styles from "./Navigator.styles";
 
 // login stack
 const loginStack = createStackNavigator({
@@ -26,6 +28,9 @@ const loginStack = createStackNavigator({
 const DrawerStack = createDrawerNavigator({
 	syllabus: { screen: SyllabusScreen},
 	progress: { screen: SyllabusProgressScreen},
+  }, {
+	gesturesEnabled: false,
+	contentComponent: DrawerContainer
   });
 
 // question stack
@@ -43,14 +48,20 @@ const DrawerNavigation = createStackNavigator({
 	DrawerStack: { screen: DrawerStack }
 }, {
 	navigationOptions: ({navigation}) => ({
-		headerStyle: {},
-		headerLeft: <Text onPress={() => navigation.toggleDrawer()}>Menu</Text>,
-		headerTitle:   `Hello ${navigation.state.params.name}`,
+		headerLeft: <Text style={ styles.drawerMenu } onPress={() => navigation.toggleDrawer()}>Menu</Text>,
+		title:   `Hello ${navigation.state.params.name}`,
+		headerTitleStyle: {
+			fontWeight: 'bold',
+			color: "#00ecff",
+			fontSize: 35,
+			width: '100%',
+			textAlign: 'center',
+			alignSelf:'center'
+		  },
 		  headerRight: 
 			<Button
 			  onPress={navigation.state.params.signOut}
 			  title="logout"
-			  color="#000"
 			/>
 	  })
 });
