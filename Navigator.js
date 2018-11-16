@@ -51,12 +51,13 @@ const DrawerNavigation = createStackNavigator({
 		headerLeft: <Text style={ styles.drawerMenu } onPress={() => navigation.toggleDrawer()}>Menu</Text>,
 		title:   `Hello ${navigation.state.params.name}`,
 		headerTitleStyle: {
-			fontWeight: 'bold',
 			color: "#00ecff",
-			fontSize: 35,
 			width: '100%',
 			textAlign: 'center',
-			alignSelf:'center'
+			alignSelf:'center',
+			fontSize: 45,
+			fontWeight: "400",
+			fontFamily: 'Quite Magical - TTF',
 		  },
 		  headerRight: 
 			<Button

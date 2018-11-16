@@ -16,9 +16,10 @@ const syllabusOutputStyles = StyleSheet.create({
 
 	},
 	syllabusListOptionTitle: {
+		fontFamily: 'Quite Magical - TTF',
 		color: "#fff",
-		fontSize: 25,
-		fontWeight: "500",
+		fontSize: 35,
+		fontWeight: "400",
 	}
 });
 

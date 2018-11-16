@@ -5,7 +5,6 @@ const syllabusStyles = StyleSheet.create({
 		flex: 1,
 		alignItems: "center",
 		backgroundColor: "#fff",
-		// backgroundColor: "#00ecff",
 		paddingBottom: "5%",
 	},
 	syllabusList: {
@@ -21,9 +20,10 @@ const syllabusStyles = StyleSheet.create({
 		paddingBottom: "3%",
 	},
 	syllabusListHeaderText: {
-		fontSize: 50,
+		fontFamily: 'Quite Magical - TTF',
+		fontSize: 70,
 		color: "#00ecff",
-		fontWeight: "bold",
+		fontWeight: "400",
 	},
 	syllabusListOption: {
 		alignItems: "stretch",

@@ -16,18 +16,20 @@ const logStyles = StyleSheet.create({
 	},
 	header: {
 		alignItems: "center",
-		paddingTop: "3%",
+		paddingTop: "2%",
 		paddingBottom: "3%",
 	},
 	heading: {
 		color: "#00ecff",
-		fontSize: 50,
-		fontWeight: "bold",
+		fontSize: 70,
+		fontWeight: "400",
+		fontFamily: 'Quite Magical - TTF',
 	},
 	textInput: {
 		width: "100%",
 		marginBottom: "3%",
-		fontSize: 25,
+		fontFamily: 'Quite Magical - TTF',
+		fontSize: 45,
 		color: "#000",
 		borderBottomColor: "#00ecff",
 		borderBottomWidth: 1,
@@ -56,7 +58,8 @@ const logStyles = StyleSheet.create({
 	},
 	buttonText: {
 		color: "#fff",
-		fontSize: 25,
+		fontSize: 35,
+		fontFamily: 'Quite Magical - TTF',
 	},
 	errorText: {
 		fontSize: 20,
@@ -65,7 +68,8 @@ const logStyles = StyleSheet.create({
 	text: {
 		alignItems: "center",
 		color: "#00ecff",
-		fontSize: 25,
+		fontSize: 40,
+		fontFamily: 'Quite Magical - TTF',
 	},
 });
 

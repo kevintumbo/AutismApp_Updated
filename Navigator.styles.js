@@ -3,8 +3,9 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({ 
 
     drawerMenu: {
-		fontWeight: "bold",
-        fontSize: 25,
+		fontWeight: "400",
+        fontSize: 35,
+		fontFamily: 'Quite Magical - TTF',
     },
     logoutButton: {
         backgroundColor: "#00ecff",
@@ -15,7 +16,9 @@ const styles = StyleSheet.create({
     },
     loginText: {
         color: "#fff",
-        fontSize: 25,
+        fontWeight: "400",
+        fontSize: 35,
+		fontFamily: 'Quite Magical - TTF',
         textAlign:'center',
         paddingLeft: '5%',
         paddingRight: '5%',

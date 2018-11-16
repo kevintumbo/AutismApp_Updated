@@ -34,8 +34,9 @@ const failureModalStyle = StyleSheet.create({
 		alignItems: "center",
 	},
 	text: {
-		fontSize: 32,
-		fontWeight:"bold",
+		fontSize: 45,
+		fontWeight: "400",
+		fontFamily: 'Quite Magical - TTF',
 	},
 	buttonContainer: {
 		flexDirection: "row",

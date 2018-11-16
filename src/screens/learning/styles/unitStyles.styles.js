@@ -14,6 +14,7 @@ const unitStyles = StyleSheet.create({
 		backgroundColor: "#fff",
 		marginTop: "2%",
 		marginBottom: "5%",
+		fontFamily: 'Quite Magical - TTF',
 
 	},
 });

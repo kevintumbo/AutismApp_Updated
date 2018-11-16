@@ -25,9 +25,10 @@ const unitOutputStyles = StyleSheet.create({
 		paddingRight: "10%",
 	},
 	unitListOptionTitle: {
+		fontFamily: 'Quite Magical - TTF',
 		color: "#fff",
-		fontSize: 25,
-		fontWeight: "500",
+		fontSize: 55,
+		fontWeight: "400",
 	}
 });
 

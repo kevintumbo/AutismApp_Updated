@@ -56,8 +56,9 @@ const styles = StyleSheet.create({
       borderWidth: 4,
     },
     uglyDrawerText:{
-        fontSize: 25,
-        fontWeight: 'bold',
+        fontFamily: 'Quite Magical - TTF',
+        fontSize: 45,
+        fontWeight: '400',
         color:  "#00ecff",
         textAlign: 'center',
         paddingLeft: 15,

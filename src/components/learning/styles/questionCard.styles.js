@@ -12,8 +12,9 @@ const styles = StyleSheet.create({
 		marginBottom: "3%",
 	},
 	question: {
-		fontSize: 35,
-		fontWeight: "bold",
+		fontSize: 55,
+		fontWeight: "400",
+		fontFamily: 'Quite Magical - TTF',
 		color: "#00ecff",
 	},
 	buttonAndImageContainer:{
@@ -43,9 +44,10 @@ const styles = StyleSheet.create({
 		marginBottom: "1%",
 	},
 	buttonText: {
+		fontFamily: 'Quite Magical - TTF',
 		color: "#fff",
-		fontWeight: "bold",
-		fontSize: 25,
+		fontWeight: "400",
+		fontSize: 45,
 	},
 	// imageContainer: {
 	// 	flexDirection: "row",

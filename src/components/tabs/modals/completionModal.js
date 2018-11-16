@@ -46,8 +46,9 @@ const completionModalStyle = StyleSheet.create({
 		alignItems: "center",
 	},
 	text: {
-		fontSize: 32,
-		fontWeight: "bold",
+		fontWeight: "400",
+        fontSize: 45,
+		fontFamily: 'Quite Magical - TTF',
 	},
 	iconContainer: {
 		flexDirection: "row",
