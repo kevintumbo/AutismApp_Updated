@@ -195,8 +195,11 @@ export function authReducer(state = initialState, action) {
 	}
 	case "LOG_OUT": {
 		return Object.assign({}, state, {
-			...state.auth,
-			...action.payload,
+			auth: {
+				...state.auth,
+				...action.payload,
+			},
+			
 		})
 	}
 	default: return state;

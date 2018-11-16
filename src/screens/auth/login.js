@@ -39,6 +39,10 @@ class LoginScreen extends Component {
         }));
 	};
 
+	componentDidMount() {
+		this.clearInput();
+	}
+
 	static getDerivedStateFromProps(props, state) {
 		if (props.errorMessage) {
 			this.showAlert(props.errorMessage);
@@ -85,6 +89,15 @@ class LoginScreen extends Component {
 			this.props.loginUserAction(username, password);
         }
 	};
+
+	clearInput = () => {
+		this.setState({
+			username: '',
+            usernameError: '',
+			password: '',
+			passwordError: '',
+		})
+	}
 
 	render() {
 		return (
