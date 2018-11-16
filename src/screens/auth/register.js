@@ -110,11 +110,13 @@ class RegisterScreen extends Component {
 							/>
                             <Text style={styles.errorText}>{this.state.passwordError}</Text>
 						</View>
+						<View>
+							<Text style={styles.text}>
+								Already have an Account? Log In.
+							</Text>
+						</View>
 						<View style={styles.pageButtons}>
 							<View style={styles.signUp}> 
-								<Text style={styles.text}>
-									Already have an Account? Log In.
-								</Text>
 								<TouchableOpacity
 									onPress={this.login}
 									style={styles.button}

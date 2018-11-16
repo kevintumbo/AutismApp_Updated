@@ -1,8 +1,10 @@
 import { StyleSheet } from "react-native";
+import RF from "react-native-responsive-fontsize";
+import { widthPercentageToDP, heightPercentageToDP } from "../../../utility/dimensions";
 
 const styles = StyleSheet.create({
 	container: {
-		width: "100%",
+		width: widthPercentageToDP('100%'),
 	},
 	questionContainer: {
 		flex: 1,
@@ -12,15 +14,16 @@ const styles = StyleSheet.create({
 		marginBottom: "3%",
 	},
 	question: {
-		fontSize: 55,
+		fontSize: RF(12),
 		fontWeight: "400",
 		fontFamily: 'Quite Magical - TTF',
 		color: "#00ecff",
+		marginTop: "5%",
 	},
 	buttonAndImageContainer:{
 		flexDirection: "row",
 		justifyContent: "space-between",
-		marginTop: "2%",
+		marginTop: "4%",
 	},
 	buttonAndImageContainer1: {
 		flexDirection: "column",
@@ -47,14 +50,12 @@ const styles = StyleSheet.create({
 		fontFamily: 'Quite Magical - TTF',
 		color: "#fff",
 		fontWeight: "400",
-		fontSize: 45,
+		fontSize: RF(6),
 	},
-	// imageContainer: {
-	// 	flexDirection: "row",
-	// 	justifyContent: "space-around",
-	// 	marginTop: "1%",
-	// 	width: "100%",
-	// },
+	images: {
+		width: widthPercentageToDP('21%'),
+		height: widthPercentageToDP('21%'),
+	},
 });
 
 export default styles;

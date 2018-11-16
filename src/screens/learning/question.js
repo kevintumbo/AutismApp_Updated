@@ -4,12 +4,14 @@ import { View, Text } from "react-native";
 import PropTypes from "prop-types";
 import SQLite from "react-native-sqlite-storage";
 import ProgressCircle from "react-native-progress-circle";
+import RF from "react-native-responsive-fontsize";
 import QuestionCard from "../../components/learning/questionCard";
 import SuccessModal from "../../components/tabs/modals/successModal";
 import FailureModal from "../../components/tabs/modals/failureModal";
 import CompletionModal from "../../components/tabs/modals/completionModal";
 import questionStyles from "./styles/questionStyles.styles";
 import { getSyllabusAction } from "../../store/modules/progress";
+import { widthPercentageToDP } from "../../utility/dimensions";
 
 const db = SQLite.openDatabase(
 	{ name: "app.db", createFromLocation: "~app.db" },
@@ -169,8 +171,8 @@ class QuestionScreen extends Component {
 				/>
 				<ProgressCircle
 					percent={this.state.progress}
-					radius={50}
-					borderWidth={8}
+					radius={widthPercentageToDP('5%')}
+					borderWidth={widthPercentageToDP('0.8%')}
 					color="#3399FF"
 					shadowColor="#999"
 					bgColor="#fff"

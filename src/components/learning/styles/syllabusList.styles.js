@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import RF from "react-native-responsive-fontsize";
 
 const syllabusOutputStyles = StyleSheet.create({
 	button: {
@@ -18,7 +19,7 @@ const syllabusOutputStyles = StyleSheet.create({
 	syllabusListOptionTitle: {
 		fontFamily: 'Quite Magical - TTF',
 		color: "#fff",
-		fontSize: 35,
+		fontSize: RF(6),
 		fontWeight: "400",
 	}
 });

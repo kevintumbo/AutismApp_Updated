@@ -1,6 +1,7 @@
 import React from "react";
 import { Modal, View, Text, Button, StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
+import RF from "react-native-responsive-fontsize";
 
 const SuccessModal = props => (
 	<Modal
@@ -43,7 +44,7 @@ const successModalStyle = StyleSheet.create({
 	},
 	text: {
 		fontWeight: "400",
-        fontSize: 45,
+        fontSize: RF(12),
 		fontFamily: 'Quite Magical - TTF',
 	},
 	buttonContainer: {

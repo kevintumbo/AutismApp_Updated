@@ -1,4 +1,6 @@
 import { StyleSheet } from "react-native";
+import RF from "react-native-responsive-fontsize";
+import { widthPercentageToDP, heightPercentageToDP } from "../../../utility/dimensions";
 
 const syllabusStyles = StyleSheet.create({
 	container: {
@@ -9,8 +11,8 @@ const syllabusStyles = StyleSheet.create({
 	},
 	syllabusList: {
 		flexDirection: "column",
-		height: "80%",
-		width: "70%",
+		height: heightPercentageToDP('100%'),
+		width: widthPercentageToDP('80%'),
 		marginTop: "2%",
 		marginBottom: "5%",
 	},
@@ -21,7 +23,7 @@ const syllabusStyles = StyleSheet.create({
 	},
 	syllabusListHeaderText: {
 		fontFamily: 'Quite Magical - TTF',
-		fontSize: 70,
+		fontSize: RF(12),
 		color: "#00ecff",
 		fontWeight: "400",
 	},

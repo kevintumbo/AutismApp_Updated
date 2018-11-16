@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import RF from "react-native-responsive-fontsize";
 
 const unitOutputStyles = StyleSheet.create({
 	button: {
@@ -27,7 +28,7 @@ const unitOutputStyles = StyleSheet.create({
 	unitListOptionTitle: {
 		fontFamily: 'Quite Magical - TTF',
 		color: "#fff",
-		fontSize: 55,
+		fontSize: RF(8),
 		fontWeight: "400",
 	}
 });

@@ -1,6 +1,7 @@
 import React from "react";
 import { Modal, View, Text, Button, StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
+import RF from "react-native-responsive-fontsize";
 
 const FailureModal = props => (
 	<Modal
@@ -34,7 +35,7 @@ const failureModalStyle = StyleSheet.create({
 		alignItems: "center",
 	},
 	text: {
-		fontSize: 45,
+		fontSize: RF(12),
 		fontWeight: "400",
 		fontFamily: 'Quite Magical - TTF',
 	},

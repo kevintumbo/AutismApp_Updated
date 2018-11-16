@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/FontAwesome";
-import { NavigationActions } from 'react-navigation';
-
+import RF from "react-native-responsive-fontsize";
 
 export default class DrawerContainer extends Component {
     render() {
@@ -57,7 +56,7 @@ const styles = StyleSheet.create({
     },
     uglyDrawerText:{
         fontFamily: 'Quite Magical - TTF',
-        fontSize: 45,
+        fontSize: RF(8),
         fontWeight: '400',
         color:  "#00ecff",
         textAlign: 'center',

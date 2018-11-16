@@ -1,4 +1,6 @@
 import { StyleSheet } from "react-native";
+import RF from "react-native-responsive-fontsize";
+import { widthPercentageToDP, heightPercentageToDP } from "../../../utility/dimensions";
 
 const styles = StyleSheet.create({
 	container: {
@@ -8,26 +10,25 @@ const styles = StyleSheet.create({
 	},
 	inputView: {
 		flexDirection: "column",
-		height: "80%",
-		width: "80%",
+		height: heightPercentageToDP('90%'),
+		width: widthPercentageToDP('80%'),
 		marginBottom: "1%",
-		marginTop: "5%",
+		marginTop: "3%",
 	},
 	header: {
 		alignItems: "center",
-		paddingTop: "2%",
 		paddingBottom: "3%",
 	},
 	heading: {
 		color: "#00ecff",
-		fontSize: 70,
+		fontSize: RF(12),
 		fontWeight: "400",
 		fontFamily: 'Quite Magical - TTF',
 	},
 	textInput: {
 		width: "100%",
-		marginBottom: "3%",
-		fontSize: 45,
+		marginBottom: "1%",
+		fontSize: RF(6),
 		color: "#000",
 		borderBottomColor: "#00ecff",
 		fontFamily: 'Quite Magical - TTF',
@@ -36,12 +37,12 @@ const styles = StyleSheet.create({
 	pageButtons: {
 		flex: 1, 
 		flexDirection: 'row',
+		marginTop: "1%",
 		width: "100%",
 		justifyContent:"space-evenly",
 	},
 	loginButton: {
 		width: "40%",
-		marginTop: "3.2%",
 	},
 	signUp: {
 		color: "#000",
@@ -57,18 +58,18 @@ const styles = StyleSheet.create({
 	},
 	buttonText: {
 		color: "#fff",
-		fontSize: 35,
+		fontSize: RF(6),
 		fontFamily: 'Quite Magical - TTF',
 	},
 	text: {
 		alignItems: "center",
 		color: "#00ecff",
-		fontSize: 35,
+		fontSize: RF(7),
 		fontFamily: 'Quite Magical - TTF',
 	},
 	errorText: {
 		marginTop: 0,
-		fontSize: 20,
+		fontSize: RF(4),
 		color: "#f00"
 	},
 	alertContainerStyle: {
