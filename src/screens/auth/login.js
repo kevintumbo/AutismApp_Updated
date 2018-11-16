@@ -124,11 +124,13 @@ class LoginScreen extends Component {
 							/>
 							<Text style={logStyles.errorText}>{this.state.passwordError}</Text>
 						</View>
+						<View>
+							<Text style={logStyles.text}>
+								Don't have an account?
+							</Text>
+						</View>
 						<View style={logStyles.pageButtons}>
 							<View style={logStyles.signUp}> 
-								<Text style={logStyles.text}>
-									Don't have an account?
-								</Text>
 								<TouchableOpacity
 									onPress={this.signUp}
 									style={logStyles.button}

@@ -1,4 +1,6 @@
 import { StyleSheet } from "react-native";
+import RF from "react-native-responsive-fontsize";
+import { widthPercentageToDP, heightPercentageToDP } from "../../../utility/dimensions";
 
 const logStyles = StyleSheet.create({
 	container: {
@@ -9,27 +11,26 @@ const logStyles = StyleSheet.create({
 	inputView: {
 		flex: 1,
 		flexDirection: "column",	
-		height: "80%",
-		width: "80%",
+		height: heightPercentageToDP('100%'),
+		width: widthPercentageToDP('80%'),
 		marginBottom: "1%",
 		marginTop: "10%",
 	},
 	header: {
 		alignItems: "center",
-		paddingTop: "2%",
-		paddingBottom: "3%",
+		paddingBottom: "1%",
 	},
 	heading: {
 		color: "#00ecff",
-		fontSize: 70,
+		fontSize: RF(12),
 		fontWeight: "400",
 		fontFamily: 'Quite Magical - TTF',
 	},
 	textInput: {
 		width: "100%",
-		marginBottom: "3%",
+		marginBottom: "1%",
 		fontFamily: 'Quite Magical - TTF',
-		fontSize: 45,
+		fontSize: RF(8),
 		color: "#000",
 		borderBottomColor: "#00ecff",
 		borderBottomWidth: 1,
@@ -37,12 +38,12 @@ const logStyles = StyleSheet.create({
 	pageButtons: {
 		flex: 1, 
 		flexDirection: 'row',
+		marginTop: "1%",
 		width: "100%",
 		justifyContent:"space-evenly",
 	},
 	loginButton: {
 		width: "40%",
-		marginTop: "3.2%",
 	},
 	signUp: {
 		color: "#000",
@@ -58,17 +59,17 @@ const logStyles = StyleSheet.create({
 	},
 	buttonText: {
 		color: "#fff",
-		fontSize: 35,
+		fontSize: RF(6),
 		fontFamily: 'Quite Magical - TTF',
 	},
 	errorText: {
-		fontSize: 20,
+		fontSize: RF(4),
 		color: "#f00"
 	},
 	text: {
 		alignItems: "center",
 		color: "#00ecff",
-		fontSize: 40,
+		fontSize: RF(7),
 		fontFamily: 'Quite Magical - TTF',
 	},
 });
