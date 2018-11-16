@@ -1,4 +1,5 @@
 import { StyleSheet } from "react-native";
+import RF from "react-native-responsive-fontsize";
 
 const syllabusProgressListStyles = StyleSheet.create({
 	button: {
@@ -16,9 +17,10 @@ const syllabusProgressListStyles = StyleSheet.create({
 		paddingBottom: "1.5%",
 	},
 	syllabusListOptionTitle: {
+		fontFamily: 'Quite Magical - TTF',
 		color: "#fff",
-		fontSize: 25,
-		fontWeight: "500",
+		fontSize: RF(6),
+		fontWeight: "400",
 	}
 });
 
