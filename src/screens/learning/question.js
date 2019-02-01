@@ -44,7 +44,7 @@ class QuestionScreen extends Component {
 
 	componentWillMount() {
 		db.transaction((tx) => {
-			tx.executeSql(`SELECT * FROM questions where unit_id = ${this.props.selected_unit}`, [], (tx, results) => {
+			tx.executeSql(`SELECT * FROM question where unit_id = ${this.props.selected_unit}`, [], (tx, results) => {
 				// Get rows with Web SQL Database spec compliance.
 
 				const len = results.rows.length;
