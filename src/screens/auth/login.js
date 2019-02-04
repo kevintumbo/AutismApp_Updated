@@ -5,7 +5,7 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import { connect } from "react-redux";
 import validate from "../../utility/formValidation";
 import logStyles from "./styles/login.styles";
-import { loginUserAction, logoutAction } from "../../store/modules/auth";
+import { loginUserAction, logoutAction, clearErrors } from "../../store/modules/auth";
 
 class LoginScreen extends Component {
 	static propTypes = {
@@ -26,9 +26,17 @@ class LoginScreen extends Component {
 		};
 	}
 
-	showAlert = message =>{
+	showAlert = message => {
 		Alert.alert(
-			message
+			'Error logging in.',
+			message,
+			
+			[
+				{
+				  text: 'Ok',
+				  onPress: () => this.props.clearErrors(),
+				},
+			],
 		);
 	}
 
@@ -43,22 +51,23 @@ class LoginScreen extends Component {
 		this.clearInput();
 	}
 
-	static getDerivedStateFromProps(props, state) {
-		if (props.errorMessage) {
-			this.showAlert(props.errorMessage);
+	componentDidUpdate(prevProps) {
+		console.log(this.props.errorMessage);
+		if (this.props.errorMessage !== prevProps.errorMessage && this.props.errorMessage !== null && this.props.errorMessage !== '') {
+			this.showAlert(this.props.errorMessage);
 		}
-        if(props.isAuthenticated) {
-			props.navigation.navigate('drawerStack', {},  {
+        if(this.props.isAuthenticated) {
+			this.props.navigation.navigate('drawerStack', {},  {
 				type: "Navigate",
 				routeName: "syllabus",
-				params: { name: props.name, signOut: () => {
+				params: { name: this.props.name, signOut: () => {
 					Alert.alert(   // Shows up the alert without redirecting anywhere
 						'Confirmation required'
 						,'Do you really want to logout?'
 						,[
 						  {text: 'Accept', onPress: () => { 
-								props.logout();
-								props.navigation.navigate('login');
+								this.props.logout();
+								this.props.navigation.navigate('login');
 						  }},
 						  {text: 'Cancel'}
 						 ]
@@ -66,8 +75,6 @@ class LoginScreen extends Component {
 				}}
 			  });
 		}
-		
-        return null;
     }
 
 	signUp = () => {
@@ -176,6 +183,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch =>({
 	loginUserAction: (name, password) => dispatch(loginUserAction(name, password)),
 	logout: () => dispatch(logoutAction()),
+	clearErrors: () => dispatch(clearErrors()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);

@@ -26,7 +26,6 @@ class SyllabusScreen extends Component {
 		);
 		db.transaction((tx) => {
 			tx.executeSql("SELECT * FROM syllabus", [], (tx, results) => {
-				console.log(results.rows.item(1));
 				// Get rows with Web SQL Database spec compliance.
 				const len = results.rows.length;
 				for (let i = 0; i < len; i += 1) {
