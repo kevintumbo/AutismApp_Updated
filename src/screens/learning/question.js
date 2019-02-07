@@ -6,6 +6,7 @@ import SQLite from "react-native-sqlite-storage";
 import ProgressCircle from "react-native-progress-circle";
 import RF from "react-native-responsive-fontsize";
 import QuestionCard from "../../components/learning/questionCard";
+import NotesCard from "../../components/learning/notesCard";
 import SuccessModal from "../../components/tabs/modals/successModal";
 import FailureModal from "../../components/tabs/modals/failureModal";
 import CompletionModal from "../../components/tabs/modals/completionModal";
@@ -46,7 +47,7 @@ class QuestionScreen extends Component {
 		db.transaction((tx) => {
 			tx.executeSql(`SELECT * FROM question where unit_id = ${this.props.selected_unit}`, [], (tx, results) => {
 				// Get rows with Web SQL Database spec compliance.
-
+				console.log(results.rows);
 				const len = results.rows.length;
 				for (let i = 0; i < len; i += 1) {
 					const row = results.rows.item(i);
@@ -89,6 +90,17 @@ class QuestionScreen extends Component {
 			}
 		}
 	};
+
+	NextNoteHandler = () => {
+		const index = this.state.questions.indexOf(this.state.current_question[0]);
+		if (this.state.questions[index + 1]) {
+			this.setState({ successModalVisible: true });
+		} else {
+			this.setState({ completionModalVisible: true });
+			this.saveProgress(this.props.userId, this.props.selected_unit, this.props.syllabusId);
+			this.props.getSyllabusAction(this.props.userId);
+		}
+	}
 
 	closeSuccessModal = () => {
 		this.setState({ successModalVisible: false });
@@ -146,13 +158,23 @@ class QuestionScreen extends Component {
 	}
 
 	render() {
-		const question = this.state.current_question.map(question => (
-			<QuestionCard
+		const question = this.state.current_question.map(question => {
+			console.log(question)
+			if(question.rightAnswer === "notes"){
+				return <NotesCard
+				key={question.id}
+				question={question}
+				next={() => this.NextNoteHandler(answer)}
+			/>
+			} else {
+				return <QuestionCard
 				key={question.id}
 				question={question}
 				attemptAnswer={(answer, rightAnswer) => this.AnswerQuestionHandler(answer, rightAnswer)}
 			/>
-		));
+			}
+		});
+
 		return (
 			<View style={questionStyles.container}>
 				<SuccessModal
