@@ -2,7 +2,6 @@ import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import ProgressCircle from "react-native-progress-circle";
 import Icon from "react-native-vector-icons/FontAwesome";
-import unitOutputStyles from "../../components/learning/styles/unitList.styles";
 
 const UnitProgressListOutput = props => (
 	<TouchableOpacity style={unitOutputStyles.button}>

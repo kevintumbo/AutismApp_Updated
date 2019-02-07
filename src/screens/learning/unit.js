@@ -39,7 +39,6 @@ class UnitScreen extends Component {
 					const row = results.rows.item(i);
 					this.setState(prevState => ({ units: prevState.units.concat(row) }));
 				}
-				console.log(this.state.units);
 			});
 		});
 	}

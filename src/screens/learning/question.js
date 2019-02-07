@@ -159,8 +159,7 @@ class QuestionScreen extends Component {
 
 	render() {
 		const question = this.state.current_question.map(question => {
-			console.log(question)
-			if(question.rightAnswer === "notes"){
+			if(question.rightAnswer === "male" || "female"){
 				return <NotesCard
 				key={question.id}
 				question={question}
