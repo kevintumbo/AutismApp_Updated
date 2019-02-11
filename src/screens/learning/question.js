@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { View, Text } from "react-native";
+import { View, Text, ScrollView } from "react-native";
 import PropTypes from "prop-types";
 import SQLite from "react-native-sqlite-storage";
-import ProgressCircle from "react-native-progress-circle";
-import RF from "react-native-responsive-fontsize";
+import ProgressCircle from "react-native-progress-circle";;
 import QuestionCard from "../../components/learning/questionCard";
 import NotesCard from "../../components/learning/notesCard";
 import SuccessModal from "../../components/tabs/modals/successModal";
@@ -43,7 +42,7 @@ class QuestionScreen extends Component {
 		};
 	}
 
-	componentWillMount() {
+	componentDidMount() {
 		db.transaction((tx) => {
 			tx.executeSql(`SELECT * FROM question where unit_id = ${this.props.selected_unit}`, [], (tx, results) => {
 				// Get rows with Web SQL Database spec compliance.
@@ -159,11 +158,11 @@ class QuestionScreen extends Component {
 
 	render() {
 		const question = this.state.current_question.map(question => {
-			if(question.rightAnswer === "male" || "female"){
+			if(question.right_answer === "male" || question.right_answer === "female"){
 				return <NotesCard
 				key={question.id}
 				question={question}
-				next={() => this.NextNoteHandler(answer)}
+				next={() => this.NextNoteHandler()}
 			/>
 			} else {
 				return <QuestionCard
@@ -175,33 +174,41 @@ class QuestionScreen extends Component {
 		});
 
 		return (
-			<View style={questionStyles.container}>
-				<SuccessModal
-					modalVisible={this.state.successModalVisible}
-					closeModal={() => this.closeSuccessModal()}
-					nextQuestion={() => this.nextQuestionHandler()}
-				/>
-				<FailureModal
-					modalVisible={this.state.failureModalVisible}
-					closeModal={() => this.closeFailureModal()}
-				/>
-				<CompletionModal
-					modalVisible={this.state.completionModalVisible}
-					chooseAnotherUnit={() => this.closeCompletionModal()}
-					repeatUnit={() => this.repeatUnitHandler()}
-				/>
-				<ProgressCircle
-					percent={this.state.progress}
-					radius={widthPercentageToDP('5%')}
-					borderWidth={widthPercentageToDP('0.8%')}
-					color="#3399FF"
-					shadowColor="#999"
-					bgColor="#fff"
-				>
-					<Text style={{ fontSize: 18 }}>{`${this.state.progress}%`}</Text>
-				</ProgressCircle>
-				{question}
-			</View>
+			<ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+				<View style={questionStyles.container}>
+					<View style={questionStyles.list}>
+						<SuccessModal
+							modalVisible={this.state.successModalVisible}
+							closeModal={() => this.closeSuccessModal()}
+							nextQuestion={() => this.nextQuestionHandler()}
+						/>
+						<FailureModal
+							modalVisible={this.state.failureModalVisible}
+							closeModal={() => this.closeFailureModal()}
+						/>
+						<CompletionModal
+							modalVisible={this.state.completionModalVisible}
+							chooseAnotherUnit={() => this.closeCompletionModal()}
+							repeatUnit={() => this.repeatUnitHandler()}
+						/>
+						
+						{this.state.questions[0] !== undefined &&
+						this.state.questions[0].right_answer !== "male" && 
+						this.state.questions[0].right_answer !== "female" && (
+							<ProgressCircle
+								percent={this.state.progress}
+								radius={widthPercentageToDP('5%')}
+								borderWidth={widthPercentageToDP('0.8%')}
+								color="#3399FF"
+								shadowColor="#999"
+								bgColor="#fff"
+							>
+							<Text style={{ fontSize: 18 }}>{`${this.state.progress}%`}</Text>
+						</ProgressCircle>)}
+						{question}
+					</View>
+				</View>
+			</ScrollView>
 		);
 	}
 }

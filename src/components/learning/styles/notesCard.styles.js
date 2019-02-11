@@ -6,32 +6,44 @@ const styles = StyleSheet.create({
 	container: {
 		width: widthPercentageToDP('100%'),
 	},
-	notesContainer: {
+	imageContainer: {
 		flex: 1,
-		flexDirection: "column",
 		alignItems: "center",
 		justifyContent: "center",
-		marginBottom: "3%",
-    },
-    images: {
-		width: widthPercentageToDP('21%'),
-		height: widthPercentageToDP('21%'),
 	},
-    notes: {
-		fontSize: RF(12),
+	images: {
+		width: widthPercentageToDP('100%'),
+	},
+	noteContainer: {
+		width: widthPercentageToDP('100%'),
+	},
+	note: {
+		textAlign: 'center',
+		fontSize: RF(9),
 		fontWeight: "400",
 		fontFamily: 'Quite Magical - TTF',
 		color: "#00ecff",
-		marginTop: "5%",
 	},
-    button: {
-		width: "50%",
+	buttonContainer: {
+		flex: 1,
+		alignItems: "center",
+		marginTop: "1%",
+		marginBottom: "1%",
+	},
+	button: {
+		width:  widthPercentageToDP('30%'),
 		backgroundColor: "#00ecff",
 		borderRadius: 15,
-		paddingTop: "3%",
-		paddingBottom: "3%",
+		paddingTop: "2%",
+		paddingBottom: "2%",
 		alignItems: "center",
-		marginBottom: "1%",
+	},
+	buttonText: {
+		fontFamily: 'Quite Magical - TTF',
+		color: "#fff",
+		fontWeight: "400",
+		fontSize: RF(7),
+		paddingBottom: "2%"
 	},
 });
 

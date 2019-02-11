@@ -1,13 +1,19 @@
 import { StyleSheet } from "react-native";
+import { widthPercentageToDP, heightPercentageToDP } from "../../../utility/dimensions";
 
 const questionStyles = StyleSheet.create({
 	container: {
 		flex: 1,
-		flexDirection: 'column',
 		alignItems: "center",
-        justifyContent: 'center',
 		backgroundColor: "#fff",
-		paddingBottom: "5%",
+		justifyContent: "center",
+	},
+	list: {
+		flexDirection: "column",
+		height: heightPercentageToDP('100%'),
+		width: widthPercentageToDP('90%'),
+		marginTop: "2%",
+		alignItems: "center",
 	},
 });
 

@@ -8,22 +8,23 @@ const styles = StyleSheet.create({
 	},
 	questionContainer: {
 		flex: 1,
-		flexDirection: "column",
 		alignItems: "center",
 		justifyContent: "center",
-		marginBottom: "3%",
+		marginBottom: "2%",
+		marginTop: "4%",
+		width: widthPercentageToDP('100%'),
 	},
 	question: {
+		textAlign: 'center',
 		fontSize: RF(12),
 		fontWeight: "400",
 		fontFamily: 'Quite Magical - TTF',
 		color: "#00ecff",
-		marginTop: "5%",
 	},
 	buttonAndImageContainer:{
 		flexDirection: "row",
 		justifyContent: "space-between",
-		marginTop: "4%",
+		marginTop: "5%",
 	},
 	buttonAndImageContainer1: {
 		flexDirection: "column",
@@ -50,7 +51,7 @@ const styles = StyleSheet.create({
 		fontFamily: 'Quite Magical - TTF',
 		color: "#fff",
 		fontWeight: "400",
-		fontSize: RF(6),
+		fontSize: RF(7),
 	},
 	images: {
 		width: widthPercentageToDP('21%'),
