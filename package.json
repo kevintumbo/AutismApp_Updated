@@ -12,9 +12,14 @@
     "react": "16.6.0-alpha.8af6728",
     "react-native": "^0.57.1",
     "react-native-awesome-alerts": "^1.1.1",
+    "react-native-elements": "^1.0.0",
+    "react-native-keyboard-aware-scroll-view": "^0.7.4",
     "react-native-progress-circle": "^2.0.0",
+    "react-native-responsive-fontsize": "^0.1.2",
+    "react-native-responsive-screen": "^1.1.10",
+    "react-native-splash-screen": "^3.1.1",
     "react-native-sqlite-storage": "^3.3.6",
-    "react-native-vector-icons": "^4.4.3",
+    "react-native-vector-icons": "^4.6.0",
     "react-navigation": "^2.3.0",
     "react-navigation-redux-helpers": "^2.0.0-beta",
     "react-redux": "^5.0.6",
@@ -22,7 +27,8 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.2.0",
     "rn-fetch-blob": "^0.10.13",
-    "uuid": "^3.1.0"
+    "uuid": "^3.1.0",
+    "validate.js": "^0.12.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
@@ -49,7 +55,7 @@
   },
   "rnpm": {
     "assets": [
-	    "./assets/fonts/"
+      "src/assets/fonts"
     ]
   }
 }

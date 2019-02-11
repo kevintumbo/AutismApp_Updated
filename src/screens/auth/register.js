@@ -1,133 +1,154 @@
-import React, { Component } from "react";
-import { Button, Text, TextInput, View } from "react-native";
-import SQLite from "react-native-sqlite-storage";
-import validator from "../../utility/validation";
+import React, { Component } from "React";
+import { Alert, TouchableOpacity, Text, TextInput, View, KeyboardAvoidingView } from "react-native";
+import { connect } from "react-redux";
+import { signUpAction, clearErrors } from "../../store/modules/auth";
 import styles from "./styles/register.styles";
+import validate from "../../utility/formValidation";
 
-export default class RegisterScreen extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			isLoggedIn: false,
-			name: {
-				value: "",
-				valid: false,
-				validationRules: {
-					isName: true,
-				},
-			},
-			email: {
-				value: "",
-				valid: false,
-				validationRules: {
-					isEmail: true,
-				},
-			},
-			password: {
-				value: "",
-				valid: false,
-				validationRules: {
-					minLength: 6,
-				},
-			},
-		};
+class RegisterScreen extends Component {
+    constructor(props){
+        super(props);
+        this.state = {
+            username: '',
+            usernameError: '',
+            email: '',
+            emailError: '',
+            password: '',
+            passwordError: '',
+		}
+		this.signUp = this.signUp.bind(this);
 	}
 
-	Login = () => {
-		this.props.navigation.navigate('login')
-	};
-
-	updateInputState = (key, value) => {
-		this.setState(prevState => ({
-			...prevState,
-			[key]: {
-				...prevState[key],
-				value,
-				valid: validator(value, prevState[key].validationRules),
-			},
-		}));
-	};
-
-	SignUp = () => {
-		const db = SQLite.openDatabase(
-			{ name: "app.db", createFromLocation: "~app.db" },
-			this.openCB, this.successCB, this.errorCB,
+	componentDidUpdate(prevProps) {
+		if(this.props.message !== prevProps.message)
+			this.showAlert(this.props.message);
+	  	}
+	
+	showAlert = message =>{
+		Alert.alert(
+			message
 		);
-		db.transaction((tx) => {
-			tx.executeSql("SELECT * FROM users WHERE name='" + this.state.name.value + "' AND password=" + this.state.password.value, [], (tx, results) => {
-				// Get rows with Web SQL Database spec compliance.
+	 }
 
-				const len = results.rows.length;
-				if (len > 0) {
-					console.log("A user with this name already exist");
-					alert("A user with this name already exist");
-				} else {
-					tx.executeSql("INSERT INTO users(name, password) VALUES ('" + this.state.name.value + "','" + this.state.password.value + "')", [], () => {
-						alert("Congratulations. You can Now login");
-						this.Login();
-					});
-				}
-			});
-		});
-	};
+    updateInputState = (key, value) => {
+        this.setState(prevState => ({
+            ...prevState,
+            [key]: value,
+        }));
+    };
 
-	errorCB = (err) => {
-		console.log(`SQL Error: ${err}`);
-	}
+    login = () => {
+		this.props.navigation.navigate('login');
+    };
+    
+    async signUp() {
+        const usernameError = validate('username', this.state.username);
+        const emailError = validate('email', this.state.email);
+		const passwordError = validate('password', this.state.password);
 
-	successCB = () => {
-		console.log("SQL executed fine");
-	}
+        this.setState({
+            usernameError: usernameError,
+            emailError: emailError,
+            passwordError: passwordError,
+        })
 
-	openCB = () => {
-		console.log("Database OPENED");
-	}
+        if (!usernameError && !emailError && !passwordError) {
+            const username = this.state.username;
+            const password = this.state.password;
+			await this.props.signUpAction(username, password);
+        }
+    };
 
-	render() {
-		return (
-			<View style={styles.container}>
-				<Text
-					style={styles.heading}
-				>
-					Autism Learning Application
-				</Text>
-				<View style={styles.inputView}>
-					<TextInput
-						style={styles.textInput}
-						placeholder="John Smith"
-						value={this.state.name.value}
-						onChangeText={val => this.updateInputState("name", val)}
-					/>
-					<TextInput
-						style={styles.textInput}
-						placeholder="johnsmith@gmail.com"
-						value={this.state.email.value}
-						onChangeText={val => this.updateInputState("email", val)}
-					/>
-					<TextInput
-						style={styles.textInput}
-						placeholder="Password"
-						value={this.state.password.value}
-						onChangeText={val => this.updateInputState("password", val)}
-					/>
-					<Button
-						onPress={this.SignUp}
-						style={styles.button}
-						title="Create An Account"
-					/>
+    render(){
+        return(
+            <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
+				<View style={styles.container}>
+					<View style={styles.inputView}>
+						<View style={styles.header}>
+							<Text
+								style={styles.heading}
+							>
+								Autism Learning App
+							</Text>
+						</View>
+						<View>
+							<TextInput
+								style={styles.textInput}
+								placeholder="John Smith"
+								value={this.state.username}
+								onChangeText={val => this.updateInputState("username", val)}
+								onBlur={() => {
+									this.setState({
+										usernameError: validate('username', this.state.username)
+									})
+								}}
+							/>
+                            <Text style={styles.errorText}>{this.state.usernameError}</Text>
+							<TextInput
+								style={styles.textInput}
+								placeholder="johnsmith@gmail.com"
+								value={this.state.email}
+								onChangeText={val => this.updateInputState("email", val)}
+								onBlur={() => {
+									this.setState({
+										emailError: validate('email', this.state.email)
+									})
+								}}
+							/>
+                            <Text style={styles.errorText}>{this.state.emailError}</Text>
+							<TextInput
+								style={styles.textInput}
+								placeholder="Password"
+								value={this.state.password}
+								onChangeText={val => this.updateInputState("password", val)}
+								onBlur={() => {
+									this.setState({
+	 									passwordError: validate('password', this.state.password)	
+									})
+								}}
+                                secureTextEntry={true}
+							/>
+                            <Text style={styles.errorText}>{this.state.passwordError}</Text>
+						</View>
+						<View>
+							<Text style={styles.text}>
+								Already have an Account? Log In.
+							</Text>
+						</View>
+						<View style={styles.pageButtons}>
+							<View style={styles.signUp}> 
+								<TouchableOpacity
+									onPress={this.login}
+									style={styles.button}
+								>
+									<Text style={styles.buttonText}> Log in </Text>
+								</TouchableOpacity>
+							</View>
+							<View style={styles.loginButton}> 
+								<TouchableOpacity
+									onPress={this.signUp}
+									style={styles.button}
+								>
+									<Text style={styles.buttonText}> Create Account </Text>
+								</TouchableOpacity>
+							</View>
+						</View>
+					</View>
 				</View>
-
-				<View style={styles.loginView}>
-					<Text>
-						Already have an Account? Log In.
-					</Text>
-					<Button
-						onPress={this.Login}
-						style={styles.button}
-						title="Log in"
-					/>
-				</View>
-			</View>
-		);
-	}
+			</KeyboardAvoidingView>
+        );
+    }
 }
+
+const mapDispatchToProps = dispatch => ({
+    signUpAction: (name, password) => dispatch(signUpAction(name, password)),
+    clearErrors: () => dispatch(clearErrors()),
+});
+
+const mapStateToProps = state => ({
+    message: state.authReducer.auth.message,
+    errorMessage: state.authReducer.auth.errorMessage,
+    error: state.authReducer.auth.error,
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterScreen);

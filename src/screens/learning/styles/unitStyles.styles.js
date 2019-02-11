@@ -1,0 +1,22 @@
+import { StyleSheet } from "react-native";
+
+const unitStyles = StyleSheet.create({
+	container: {
+		flex: 1,
+		alignItems: "center",
+		backgroundColor: "#fff",
+		// paddingBottom: "2%",
+	},
+	unitList: {
+		flexDirection: "column",
+		height: "100%",
+		width: "70%",
+		backgroundColor: "#fff",
+		// marginTop: "2%",
+		// marginBottom: "5%",
+		fontFamily: 'Quite Magical - TTF',
+
+	},
+});
+
+export default unitStyles;
